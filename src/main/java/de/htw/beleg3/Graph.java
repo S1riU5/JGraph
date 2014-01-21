@@ -4,33 +4,34 @@ public class Graph {
 	/**
 	 * class Graph
 	 */
+	private int[][] adjacencyMatrix;
+	private boolean[] nodes;
 	
-	public void Graph(){
+	public Graph(int MAX){
 		/**
 		 * Graph()
 		 * 
 		 * Constructor of the Graph.
 		 */
-		Node node;
-		Edge ednge;
-		int [][] adjacencyList;
-	}
-	
-	
-	public void addNode(){
 		
-	}
-	
-	public void delNode(){
+		adjacencyMatrix = new int[MAX][MAX];
+		nodes = new boolean[MAX];
 		
-	}
-	
-	public void addEdge(){
-		
-	}
-	
-	public void delEdge(){
-		
-	}
+		emptyDataSet();
+				
 
+	}
+	
+	private void emptyDataSet(){
+		for (int i = 0; i < this.adjacencyMatrix.length; i++ ){
+			this.nodes[i] = false;
+			for (int j = 0; j < this.adjacencyMatrix[0].length; j++){
+				this.adjacencyMatrix[i][j] = -1;
+			}
+		}
+	}
+	
+	
+	
+	
 }
