@@ -30,6 +30,43 @@ public class Graph {
 			}
 		}
 	}
+
+	public void addNode(){
+		this.nodes[fFEP()] = true; 
+	}
+	
+	public void addEdge(int x, int y, int value){
+		if (!this.nodes[x] || !this.nodes[y]){
+			throw new IllegalArgumentException("Unknown node!");
+		}
+		
+		this.adjacencyMatrix[x][y] = value;
+		this.adjacencyMatrix[y][x] = value;		
+	}
+	
+	public boolean[] getNodes(){
+		return this.nodes;
+	}
+	
+	public int[][] getAdjancencyMatrix(){
+		return this.adjacencyMatrix;
+	}
+	
+	private int fFEP(){
+		/**
+		 * fFEP
+		 * 
+		 * find first empty place
+		 * 
+		 * @return place of the first empty element; If -1 List is full.
+		 */
+		for (int i = 0; i < this.nodes.length; i++){
+			if (this.nodes[i]){
+				return i;
+			}
+		}
+		return -1;
+	}
 	
 	
 	
