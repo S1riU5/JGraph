@@ -22,7 +22,7 @@ public class Graph {
 		
 		emptyDataSet();
 		//Testcase
-		permRand(50,25,30);
+		permRand(11,15,30);
 		// ---
 		// Printing
 		printGraph();
@@ -78,7 +78,7 @@ public class Graph {
 				edge = getEdgesOfNode(i);
 				for (int j = 0; j<edge.length; j++){
 					if (edge[j]){
-						outpt += (nodes[j] + ", ");
+						outpt += (nodes[j] + "["+this.getEdgeValue(i, j)+"], ");
 					}
 				}
 				outpt += ")\n";
