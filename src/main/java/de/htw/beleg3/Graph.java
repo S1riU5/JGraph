@@ -31,11 +31,11 @@ public class Graph {
 		printGraph();
 	    // ------
 		
-		try {
-			fh = new Filehandler("/tmp/");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		fh = new Filehandler();
+		fh.writeOpen("justafile");
+		fh.write("test");
+		fh.write("test2");
+		fh.save();
 
 	}
 	

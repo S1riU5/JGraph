@@ -1,30 +1,38 @@
 package de.htw.beleg3;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.io.File.*;
-import java.io.DataOutput;
-import java.io.DataInput;
 
 public class Filehandler {
+	Writer fw = null;
+
+	public Filehandler() {
+
+	}
 	
-	public Filehandler(String path) throws IOException{
-		
-		Writer fw = null;
-		
+	public void writeOpen(String filename){
+		try {
+			fw = new FileWriter(filename);
+			fw.write("##  \n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void write(String line){
 		try{
-			fw = new FileWriter("fileWriter.txt");
-			fw.write("Zwei Jäger treffen sich");
-			fw.append("\n");
+			fw.append(line + "\n");
 		}
 		catch ( IOException e){
-			System.err.println(e.getStackTrace());
+			e.printStackTrace();;
 		}
-		finally {
-			if ( fw != null){
-				try {fw.close(); } catch (IOException e) { }
-			}
+	}
+	
+	public void save(){
+		try{
+			fw.close();
+		}
+		catch ( IOException e){
+			e.printStackTrace();
 		}
 	}
 
