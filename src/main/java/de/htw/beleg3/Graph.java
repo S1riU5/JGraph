@@ -1,11 +1,14 @@
 package de.htw.beleg3;
 
+import static java.lang.Math.random;
+
+
 public class Graph {
 	/**
 	 * class Graph
 	 */
 	private int[][] adjacencyMatrix;
-	private boolean[] nodes;
+	private String[] nodes;
 	
 	public Graph(int MAX){
 		/**
@@ -15,18 +18,14 @@ public class Graph {
 		 */
 		
 		adjacencyMatrix = new int[MAX][MAX];
-		nodes = new boolean[MAX];
+		nodes = new String[MAX];
 		
 		emptyDataSet();
 		//Testcase
-		int node1 = addNode();
-		int node2 = addNode();
-		int node3 = addNode();
-		this.addEdge(node1, node2, 30);
+		permRand(50,25,30);
 		// ---
 		// Printing
-		System.out.printf("node1: %s\nnode2: %s\nedge: %s",
-				node1, node2, this.getEdgeValue(node1, node2));
+		printGraph();
 	    // ------
 
 	}
@@ -42,23 +41,94 @@ public class Graph {
 		 *  adjacencyMatzrix = -1
 		 */
 		for (int i = 0; i < this.adjacencyMatrix.length; i++ ){
-			this.nodes[i] = false;
+			this.nodes[i] = "";
 			for (int j = 0; j < this.adjacencyMatrix[0].length; j++){
 				this.adjacencyMatrix[i][j] = -1;
 			}
 		}
 	}
+	
+	public void permRand(int nodes, int edges, int maxValue){
+		int rand1, rand2, rand3;
+		for (int i = 0; i<nodes; i++){			
+			addNode(String.valueOf(i));
+		}
+		for (int i = edges; i > 0; i--){
+			rand1 = randInt(0, nodes-1);
+			rand2 = randInt(0, nodes-1);
+			rand3 = randInt(0, maxValue);
+			
+			if (	rand1 == rand2 || 
+					this.adjacencyMatrix[rand1][rand2] >= 0){
+				i++;
+				continue;
+			}
+			addEdge(rand1, rand2, rand3);
+		}
+	}
+	
+	public void printGraph(){
+		boolean[] edge;
+		String outpt;
+		
+		for (int i = 0; i < nodes.length; i++){
+			if (!nodes[i].equals("")){
+				outpt = this.nodes[i];
+				outpt += "\t-> \t(";
+				edge = getEdgesOfNode(i);
+				for (int j = 0; j<edge.length; j++){
+					if (edge[j]){
+						outpt += (nodes[j] + ", ");
+					}
+				}
+				outpt += ")\n";
+				System.out.printf("%s", outpt);
+			}
+		}
+		
+	}
+	
+    private int randInt( int low, int high ){
+        /**
+         * randInt
+         * 
+         * Simple Dice-Method to get randomized Integer inside 
+         * freely selectable range.
+         * 
+         * @param int low        lowest possible Value
+         * @param int high        highest possible Value
+         * @return int Randomized Integer
+         */
+        return low + (int)(random() * ((high - low) + 1));
+    }
 
-	public int  addNode(){
+	public int  addNode(String name){
 		/**
 		 * addNode()
 		 * 
 		 * Adds a node at first empty place to the entire dataset.
 		 * @return (int) place were node got saved.
 		 */
+		//No Empty name
+		// Little hack to get them whitespace
+		if (name.length() <= 0){
+			throw new IllegalArgumentException("Empty names not allowed!");
+		}
+		if (exists(name)){
+			throw new IllegalArgumentException("Name already exists!");
+		}
 		int val = fFEP();
-		this.nodes[val] = true; 
+		this.nodes[val] = name; 
 		return val;
+	}
+	
+	private boolean exists(String elem){
+		for (int i = 0; i < nodes.length; i++){
+			if (nodes[i].equals(elem)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void addEdge(int x, int y, int value){
@@ -71,7 +141,7 @@ public class Graph {
 		 * @param (int) y  second node
 		 * @param (int) value  value of the edge 
 		 */
-		if (!this.nodes[x] || !this.nodes[y]) {
+		if (this.nodes[x].length() <= 0 || this.nodes[y].length() <= 0) {
 			throw new IllegalArgumentException("Unknown node!");
 		}
 		//TODO tryblock
@@ -85,8 +155,12 @@ public class Graph {
 		this.adjacencyMatrix[y][x] = -1;
 	}
 	
-	public boolean[] getNodes(){
+	public String[] getNodes(){
 		return this.nodes;
+	}
+	
+	public String getNodeName(int x){
+		return this.nodes[x];
 	}
 	
 	public int[][] getAdjancencyMatrix(){
@@ -97,14 +171,26 @@ public class Graph {
 		return this.adjacencyMatrix[x][y];
 	}
 	
-	public boolean[] getEdgesOfNode(int node){
+	private boolean[] getEdgesOfNode(int node){
 		boolean[] listOfNodes = new boolean[this.nodes.length];
-		for (int i = 0; i<listOfNodes.length; i++){
+		for (int i = 0; i < listOfNodes.length; i++)
 			listOfNodes[i] = false;
+		for (int i = 0; i < this.adjacencyMatrix[node].length; i++){
+			if (this.adjacencyMatrix[node][i] >= 0){
+				listOfNodes[i] = true;
+			}
 		}
 		// Sehe nach in Matritze
 		// Wenn Node verbindung => trage in Liste ein
 		return listOfNodes;
+	}
+	
+	public void deleteNode(int node){
+		for (int i = 0; i < this.adjacencyMatrix[node].length; i++){
+			this.adjacencyMatrix[node][i] = -1;
+			this.adjacencyMatrix[i][node] = -1;
+		}
+		nodes[node] = "";
 	}
 	
 	private int fFEP(){
@@ -116,7 +202,7 @@ public class Graph {
 		 * @return place of the first empty element; If -1 list is full.
 		 */
 		for (int i = 0; i < this.nodes.length; i++){
-			if (!this.nodes[i]){
+			if (this.nodes[i].length() <= 0){
 				return i;
 			}
 		}

@@ -49,10 +49,12 @@ Bewertet werden der Programmquelltext 50%, die korrekte Arbeitsweise 20%, die
 Dokumentation 20% sowie die vorbereiteten Testbeispiele 10%
  */
 
+//http://stackoverflow.com/questions/2950110/paint-a-graph-in-java-using-awt
+
 public class App 
 {
     public static void main( String[] args )
     {
-        Graph graph = new Graph(10);
+        Graph graph = new Graph(500);
     }
 }
