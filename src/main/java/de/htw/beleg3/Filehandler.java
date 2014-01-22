@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import  java.io.BufferedReader.*;
 //http://www.tutorials.de/java/197375-daten-aus-einer-excel-oder-csv-datei-eine-jtable-auslesen.html
 
 public class Filehandler {
@@ -47,14 +46,18 @@ public class Filehandler {
 					if (line == null){
 						break;
 					}
-					System.out.printf("%s\n", line);
+					System.out.printf("%s\n", line); //DEBUG
 				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 
-			
+			// TODO Parser
+			// skip commentlines. They will be marked with # on the beginning of the line.
+			// # 
+			// Put first elements of each dataline to listofnodes, (*)then make the edges to the second element with the third element as value
+			// if here line doesn't end goto (*)
 		}
 	}
 	
