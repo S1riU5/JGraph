@@ -33,6 +33,7 @@ public class Graph {
 		
 		fh = new Filehandler();
 		fh.saveGraphCSV(nodes, adjacencyMatrix);
+		fh.openGraphCSV();
 
 
 	}

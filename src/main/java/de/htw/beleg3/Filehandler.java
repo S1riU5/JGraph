@@ -1,12 +1,17 @@
 package de.htw.beleg3;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-
+import  java.io.BufferedReader.*;
 //http://www.tutorials.de/java/197375-daten-aus-einer-excel-oder-csv-datei-eine-jtable-auslesen.html
 
 public class Filehandler {
 	Writer fw = null;
+	FileReader fr;
+	BufferedReader br;
 
 	public Filehandler() {
 
@@ -31,6 +36,28 @@ public class Filehandler {
 		save();
 	}
 	
+	public void openGraphCSV(){
+		String line;
+
+			try {
+				fr = new FileReader("save.csv");
+				br = new BufferedReader(fr);
+				while (true){
+					line = br.readLine();
+					if (line == null){
+						break;
+					}
+					System.out.printf("%s\n", line);
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+
+			
+		}
+	}
+	
 	private void writeOpen(String filename){
 		try {
 			fw = new FileWriter(filename);
@@ -51,6 +78,8 @@ public class Filehandler {
 	private void save(){
 		try{
 			fw.close();
+			System.out.printf("Write information in file.\n" );
+
 		}
 		catch ( IOException e){
 			e.printStackTrace();
