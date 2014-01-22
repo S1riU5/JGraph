@@ -32,10 +32,8 @@ public class Graph {
 	    // ------
 		
 		fh = new Filehandler();
-		fh.writeOpen("justafile");
-		fh.write("test");
-		fh.write("test2");
-		fh.save();
+		fh.saveGraphCSV(nodes, adjacencyMatrix);
+
 
 	}
 	
