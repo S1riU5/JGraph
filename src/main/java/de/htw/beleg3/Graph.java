@@ -2,6 +2,8 @@ package de.htw.beleg3;
 
 import static java.lang.Math.random;
 
+import java.io.IOException;
+
 
 public class Graph {
 	/**
@@ -9,6 +11,7 @@ public class Graph {
 	 */
 	private int[][] adjacencyMatrix;
 	private String[] nodes;
+	private Filehandler fh;
 	
 	public Graph(int MAX){
 		/**
@@ -21,12 +24,18 @@ public class Graph {
 		nodes = new String[MAX];
 		
 		emptyDataSet();
-		//Testcase
-		permRand(11,15,30);
 		// ---
+		//Testcase
+		permRand(11,15,30); // nodes, edges, maxValue
 		// Printing
 		printGraph();
 	    // ------
+		
+		try {
+			fh = new Filehandler("/tmp/");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 	
@@ -49,6 +58,17 @@ public class Graph {
 	}
 	
 	public void permRand(int nodes, int edges, int maxValue){
+		/**
+		 * permRand()
+		 * 
+		 * Randomized (permutative) Graph.
+		 * 
+		 * @param (int) nodes  value of nodes
+		 * @param (int) edges  value of edges
+		 * @param (int) maxValue  maximal posible value of the edges.
+		 * 
+		 * 
+		 */
 		int rand1, rand2, rand3;
 		for (int i = 0; i<nodes; i++){			
 			addNode(String.valueOf(i));
@@ -85,7 +105,6 @@ public class Graph {
 				System.out.printf("%s", outpt);
 			}
 		}
-		
 	}
 	
     private int randInt( int low, int high ){
