@@ -75,7 +75,7 @@ public class Graph {
 		for (int i = edges; i > 0; i--){
 			rand1 = randInt(0, nodes-1);
 			rand2 = randInt(0, nodes-1);
-			rand3 = randInt(0, maxValue);
+			rand3 = randInt(1, maxValue);
 			
 			if (	rand1 == rand2 || 
 					this.adjacencyMatrix[rand1][rand2] >= 0){
