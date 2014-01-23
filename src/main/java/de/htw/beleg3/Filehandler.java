@@ -70,7 +70,7 @@ public class Filehandler {
 					if (line == null){
 						break;
 					}
-					//FIXME System.out.println(parseLine(line));
+					//System.out.println(parseLine(line));
 					i++;
 				}
 			} catch (FileNotFoundException e) {
@@ -90,7 +90,9 @@ public class Filehandler {
 		
 		for (int i = 0; i < data.length; i++){
 			for (int j = 0; j < data[i].length; j++){
+		         System.out.printf("%s\t", data[i][j]);
 			}
+			System.out.println();
 		}
 		
 		
@@ -102,13 +104,11 @@ public class Filehandler {
 		// Put first elements of each dataline to listofnodes, (*)then make the edges to the second element with the third element as value
 		// if here line doesn't end goto (*)
 		List<String> bigdat;
-		List<String> lildat = new ArrayList<String>();
 		int[] dat = new int[getNumOfElems(data)];
 		bigdat = Arrays.asList(Pattern.compile(",").split(data));
-	    Iterator itr = lildat.iterator();
+	    Iterator itr = bigdat.iterator(); // here was the prob with data
 	    int i = 0;
 	    while(itr.hasNext()){
-	    	//FIXME OutOfBounds
 	    	String elem = (String) itr.next();
 	    	dat[i] = Integer.parseInt(elem);
 	    	i++;
@@ -140,7 +140,7 @@ public class Filehandler {
 			fw.append(line + "\n");
 		}
 		catch ( IOException e){
-			e.printStackTrace();;
+			e.printStackTrace();
 		}
 	}
 	
