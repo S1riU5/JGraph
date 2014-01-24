@@ -1,18 +1,35 @@
 package de.htw.beleg3;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class Window extends Buttonbar {
-    
-    
-    public Window(){
-     
+public class Window extends JFrame {
+
+    JPanel menu = new JPanel();
+    JButton addNode = new JButton("Add Node");
+    JButton addEdge = new JButton("Add Edge");
+    JButton removeNode = new JButton("Remove Node");
+    JButton removeEdge = new JButton("Remove Edge");
+    JButton Save = new JButton("Save Graph");
+
+    public Window() {
+        setSize(700, 700);
+        setLayout(new BorderLayout());
+        runloop();
+
+    }
+
+    public void runloop() {
+        controllbar();
+        frame();
+
     }
 
     /**
@@ -20,26 +37,34 @@ public class Window extends Buttonbar {
      */
     public void frame() {
         
-        
-        //create new frame
-        JFrame mainframe = new JFrame();
-        //select layout 
-        mainframe.setLayout(new BorderLayout());
-        //create panel
-        JPanel setup = new JPanel();
-        //
+        menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
+        menu.setBorder(BorderFactory.createEtchedBorder()); 
+        add(menu, BorderLayout.EAST);
 
-        setup.setBorder(BorderFactory.createEtchedBorder());
-        mainframe.add(setup, BorderLayout.EAST);
-        mainframe.setSize(700, 700);
-        mainframe.setVisible(true);
+        setVisible(true);
 
     }
 
-    // uses a layout to structure all JPanels
-    // chose and Implement Layout [ ]
-    // include buttonPanel[ ]
-    // Include GraphPanel [ ]
-    // Include ActionMOdifier [ ]
+    public void controllbar() {
+
+        menu.add(addNode);
+        menu.add(removeNode);
+        menu.add(addEdge);
+        menu.add(removeEdge);
+        menu.add(Save);
+
+        addNode.setAlignmentX(0);
+        addNode.setMaximumSize(new Dimension(Integer.MAX_VALUE, addNode.getMaximumSize().height));
+        addEdge.setAlignmentX(0);
+        addEdge.setMaximumSize(new Dimension(Integer.MAX_VALUE, addNode.getMaximumSize().height));
+        Save.setAlignmentX(0);
+        Save.setMaximumSize(new Dimension(Integer.MAX_VALUE, addNode.getMaximumSize().height));
+        removeEdge.setAlignmentX(0);
+        removeEdge.setMaximumSize(new Dimension(Integer.MAX_VALUE, addNode.getMaximumSize().height));
+        removeNode.setAlignmentX(0);
+        removeNode.setMaximumSize(new Dimension(Integer.MAX_VALUE, addNode.getMaximumSize().height));
+
+    }
+    
 
 }
