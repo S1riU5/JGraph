@@ -60,7 +60,7 @@ public class App
         //fenster.frame();
 
         //Graph graph = new Graph(500);
-        Window fenster = new Window();
+        //Window fenster = new Window();
        
 
     }

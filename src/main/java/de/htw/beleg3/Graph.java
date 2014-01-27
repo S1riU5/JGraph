@@ -24,15 +24,24 @@ public class Graph {
 		emptyDataSet();
 		// ---
 		//Testcase
-		permRand(11,15,30); // nodes, edges, maxValue
+		this.addNode("test1");
+		this.addNode("test2");
+		this.addNode("test3");
+		this.addEdge(0,1,45);
+		
+		//permRand(11,15,30); // nodes, edges, maxValue
 		// Printing
 		printGraph();
 	    // ------
 		
 		fh = new Filehandler();
+		// Save data into file
 		fh.saveGraphCSV(nodes, adjacencyMatrix);
+		// load data from file
+		fh.loadData();
 		nodes = fh.loadNodes();
 		adjacencyMatrix = fh.loadEdges();
+		
 		printGraph();
 
 

@@ -23,13 +23,15 @@ public class Filehandler {
 		// ----
 	}
 	
-	public String[] loadNodes(){
+	public void loadData(){
 		this.loadGraphCSV();
+	}
+	
+	public String[] loadNodes(){
 		return nodes;
 	}
 	
 	public int[][] loadEdges(){
-		this.loadGraphCSV();
 		return edges;
 	}
 	
@@ -111,16 +113,33 @@ public class Filehandler {
 	}
 	
 	private void intrprtData(int[] data, int line){
+		int from_node = 0;
+		int to_node = 0;
+		int val = 0;
+		
+		
 		if (data == null){
 			throw new IllegalStateException("No Data found!");
 		}
 		//First element into nodes.
 		nodes[line] = "" + data[0];	
+		from_node = data[0];
+		
 		for (int i = 1; i < data.length; i++){
 			// The second and following elements are the edges.
 			//FIXME  nullspam!
-			edges[line][i] = data[i];	
+			if (i % 2 != 0){
+				to_node = data[i];
+				continue;
 			}
+			else{
+				val = data[i];
+			}
+			if (val != 0){
+				edges[from_node][to_node] = val;	
+
+			}
+		}
 	}
 		
 	private int[] parseLine(String data){
