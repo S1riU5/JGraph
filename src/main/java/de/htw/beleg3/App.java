@@ -55,7 +55,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        Graph graph = new Graph(500);
+        Graph graph = new Graph(50);
        // Window fenster = new Window();
         //fenster.frame();
     }

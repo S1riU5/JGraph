@@ -2,8 +2,6 @@ package de.htw.beleg3;
 
 import static java.lang.Math.random;
 
-import java.io.IOException;
-
 
 public class Graph {
 	/**
@@ -33,7 +31,9 @@ public class Graph {
 		
 		fh = new Filehandler();
 		fh.saveGraphCSV(nodes, adjacencyMatrix);
-		fh.openGraphCSV();
+		nodes = fh.loadNodes();
+		adjacencyMatrix = fh.loadEdges();
+		printGraph();
 
 
 	}
@@ -56,7 +56,7 @@ public class Graph {
 		}
 	}
 	
-	public void permRand(int nodes, int edges, int maxValue){
+	private void permRand(int nodes, int edges, int maxValue){
 		/**
 		 * permRand()
 		 * 
@@ -226,8 +226,5 @@ public class Graph {
 		}
 		return -1;
 	}
-	
-	
-	
 	
 }
