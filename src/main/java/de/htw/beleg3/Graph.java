@@ -10,7 +10,6 @@ public class Graph {
 	private int[][] adjacencyMatrix;
 	private String[] nodes;
 	private Filehandler fh;
-	private Searcher sebSearcher = new Searcher();
 	
 	public Graph(int MAX){
 		/**
@@ -48,8 +47,7 @@ public class Graph {
 		for (int i = 0; i < this.nodes.length; i++){
 			nodelistvisited[i] = false;
 		}
-		out.printf("%s\n", sebSearcher.DFS(this.adjacencyMatrix, nodelistvisited, 0, 1, 0));
-
+		
 
 	}
 	
