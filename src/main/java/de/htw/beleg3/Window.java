@@ -31,6 +31,8 @@ public class Window extends JFrame {
     JButton addEdge;
     JButton removeNode;
     JButton removeEdge;
+    JButton save;
+    JButton load;
     JButton Save;
     //Textfields
     JTextField nodename;
@@ -110,6 +112,8 @@ public class Window extends JFrame {
         removeNode = new JButton("Remove Node");
         removeEdge = new JButton("Remove Edge");
         addEdge = new JButton("Add Edge");
+        save = new JButton("Save");
+        load = new JButton("Load");
         
         //create Label with text
         nodetext = new JLabel("Enter nodename");
@@ -139,7 +143,8 @@ public class Window extends JFrame {
         removeNode.setBounds(0, 180, 195, 30);
         addEdge.setBounds(0, 90, 195, 30);                     
         removeEdge.setBounds(0, 225, 195, 30);
-       
+        save.setBounds(0, 270, 195, 30);
+        load.setBounds(0, 315, 195, 30);
         
         
         //Instructions (label)
@@ -150,8 +155,8 @@ public class Window extends JFrame {
         nodename.setBounds(0, 45, 195, 30);
         edgelength.setBounds(0, 135, 195, 30);
         
-        //dropdown menu
-        dropNodename.setBounds(0, 270, 195, 30);
+       
+      
        
         //add Textformater to text
         nodetext.setFont(schrift); 
@@ -167,6 +172,8 @@ public class Window extends JFrame {
         menu.add(addEdge);
         menu.add(removeNode);        
         menu.add(removeEdge);
+        menu.add(save);
+        menu.add(load);
         
         //TEXTFIELDS
         menu.add(nodetext);          
@@ -176,10 +183,18 @@ public class Window extends JFrame {
         menu.add(nodename);          
         menu.add(edgelength);
         
-        //DROPDOWNMENU
-        menu.add(dropNodename);
+     
         
-        
+        //add actionlistener to buttons
+            
+        addNode.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                Drakular.addNode(nodename.getText());
+                repaint();
+                
+            }
+        });
         
   
         // set windwo Visable

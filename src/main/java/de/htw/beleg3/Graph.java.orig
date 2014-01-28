@@ -10,7 +10,11 @@ public class Graph {
 	private int[][] adjacencyMatrix;
 	private String[] nodes;
 	private Filehandler fh;
+<<<<<<< HEAD
 	private Searcher sebSearcher = new Searcher();
+	private boolean[] activeNodes;
+=======
+>>>>>>> 4962aea3ba528c2b0ba7c6ae2771448db8047440
 	
 	public Graph(int MAX){
 		/**
@@ -30,11 +34,7 @@ public class Graph {
 		this.addNode("test3");
 		this.addEdge(0,1,45);
 		
-<<<<<<< HEAD
 		//permRand(50,50,30); // nodes, edges, maxValue
-=======
-		permRand(15,25,30); // nodes, edges, maxValue
->>>>>>> ae66405c7f6cb4c1eab93614acf51d608fc9d9f0
 		// Printing
 		printGraph();
 	    // ------
@@ -52,8 +52,11 @@ public class Graph {
 		for (int i = 0; i < this.nodes.length; i++){
 			nodelistvisited[i] = false;
 		}
-		out.printf("%s\n", sebSearcher.DFS(this.adjacencyMatrix, nodelistvisited, 0, 1, 0));
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 4962aea3ba528c2b0ba7c6ae2771448db8047440
 
 	}
 	
@@ -159,7 +162,7 @@ public class Graph {
 		return val;
 	}
 	
-	private boolean exists(String elem){
+	public boolean exists(String elem){
 		for (int i = 0; i < nodes.length; i++){
 			if (nodes[i].equals(elem)){
 				return true;
@@ -238,6 +241,19 @@ public class Graph {
 			this.adjacencyMatrix[i][node] = -1;
 		}
 		nodes[node] = "";
+	}
+	
+	public boolean[] getActiveNodes(){
+		activeNodes = new boolean[nodes.length];
+		for (int i = 0; i < activeNodes.length; i++){
+			if (nodes[i].equals("")){
+				activeNodes[i] = false;
+			}
+			else{
+				activeNodes[i] = true;
+			}
+		}
+		return activeNodes;
 	}
 	
 	private int fFEP(){

@@ -10,8 +10,6 @@ public class Graph {
 	private int[][] adjacencyMatrix;
 	private String[] nodes;
 	private Filehandler fh;
-	private Searcher sebSearcher = new Searcher();
-	private boolean[] activeNodes;
 	
 	public Graph(int MAX){
 		/**
@@ -49,7 +47,6 @@ public class Graph {
 		for (int i = 0; i < this.nodes.length; i++){
 			nodelistvisited[i] = false;
 		}
-
 
 	}
 	
