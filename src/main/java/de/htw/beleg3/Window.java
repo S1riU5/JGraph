@@ -1,6 +1,7 @@
 package de.htw.beleg3;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,8 +25,8 @@ import javax.swing.SwingUtilities;
 import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
 
 public class Window extends JFrame {
-
-   
+    int nsize = 400;
+    int csize = 400;
     JButton addNode;
     JButton addEdge;
     JButton removeNode;
@@ -56,6 +57,7 @@ public class Window extends JFrame {
 
     public Window() {
         super("Graph");
+        degree(1);
         runloop();
        
 
@@ -69,13 +71,22 @@ public class Window extends JFrame {
     
     public void framesettings(){
         
-        setSize(700, 700);
+        setSize(700, 550);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }
+    
+    private double degree(int nodenumber){
+        
+        return Math.toDegrees(2*Math.PI)/nodenumber;
+     
+        
+    }
+    
+    
     
     
     
@@ -124,8 +135,10 @@ public class Window extends JFrame {
        //set Position
         menu.setBounds(500,0, 195, 500);
         
-        addNode.setBounds(0, 0, 195, 30);                       removeNode.setBounds(0, 180, 195, 30);
-        addEdge.setBounds(0, 90, 195, 30);                      removeEdge.setBounds(0, 225, 195, 30);
+        addNode.setBounds(0, 0, 195, 30);                       
+        removeNode.setBounds(0, 180, 195, 30);
+        addEdge.setBounds(0, 90, 195, 30);                     
+        removeEdge.setBounds(0, 225, 195, 30);
        
         
         
@@ -150,14 +163,18 @@ public class Window extends JFrame {
         add(draw);
        // add Components to Panel (menu)
         //BUTTONS
-        menu.add(addNode);           menu.add(addEdge);
-        menu.add(removeNode);        menu.add(removeEdge);
+        menu.add(addNode);           
+        menu.add(addEdge);
+        menu.add(removeNode);        
+        menu.add(removeEdge);
         
         //TEXTFIELDS
-        menu.add(nodetext);          menu.add(edgetext);
+        menu.add(nodetext);          
+        menu.add(edgetext);
        
         //TEXTLABLE
-        menu.add(nodename);          menu.add(edgelength);
+        menu.add(nodename);          
+        menu.add(edgelength);
         
         //DROPDOWNMENU
         menu.add(dropNodename);
@@ -170,14 +187,69 @@ public class Window extends JFrame {
 
     }
     
+    
     private class DrawLine extends JLabel{
         
         @Override
         protected void paintComponent(Graphics g) {
-            for(int i= 0; i<Drakular.getNodes().length; i++ )
-                
-            g.drawOval(50, 50, 5, 5);
-            super.paintComponent(g);
+            int tmp[], tmp2[] = new int [2];
+            int tmpCoord[], tmpCoord2[] = new int [2];
+               int numberofnodes = Drakular.getNumerOfNodes();  
+               //g.drawOval(25+(csize/2)-(nsize/2),25+(csize/2)-(nsize/2),nsize ,nsize);
+           for(int i=0; i<numberofnodes; i++){
+               
+                 
+              
+               tmpCoord=getCenter(csize,csize,25,25);
+               tmp = getCoord(degree(Drakular.getNumerOfNodes()),(csize/2),i);
+               g.setColor(Color.LIGHT_GRAY);
+               g.fillOval(tmpCoord[0]+tmp[0],tmpCoord[1]+tmp[1],25,25);
+               g.drawString(Drakular.getNodeName(i), tmpCoord[0]+tmp[0], tmpCoord[1]+tmp[1]);
+              
+              
+           }
+           int linepusher = 10;
+           g.setColor(Color.BLUE);
+           for(int i = 0; i<numberofnodes; i++){
+              for(int j = 0; j< numberofnodes; j++){
+                  if(Drakular.getEdgeValue(i, j)>= 0){
+                      tmpCoord=getCenter(csize,csize,25,25);
+                      tmpCoord2=getCenter(csize,csize,25,25);
+                      tmp = getCoord(degree(Drakular.getNumerOfNodes()),(csize/2),i);
+                      tmp2 = getCoord(degree(Drakular.getNumerOfNodes()),(csize/2),j);
+                      int x1 = tmpCoord[0]+tmp[0]+linepusher;
+                      int y1 =tmpCoord[1]+tmp[1]+linepusher;
+                      int x2 = tmpCoord2[0]+tmp2[0]+linepusher;
+                      int y2 = tmpCoord2[1]+tmp2[1]+linepusher;
+                      g.drawLine(x1,y1 ,x2 ,y2);      
+                      g.drawString(""+Drakular.getEdgeValue(i, j), (x1+x2)/2, (y1+y2)/2);
+                  }
+                  
+              }
+              
+           }
+           super.paintComponent(g);
+         
+           
+        }
+        
+        private int[] getCenter(int posX, int posY, int high,int weidth){
+            int[] tmp = new int[2];
+            
+            tmp[0]= (25+(posX/2)-(high/2));
+            tmp[1]= (25+(posY/2)-(weidth/2));
+            
+            return tmp;
+        }
+        private int[] getCoord(double degree , int radius, int multiplicator ){
+           int[] Coord = new int[2];
+           Coord[0]=((int)(Math.floor((int)(radius*Math.sin(Math.toRadians(degree*multiplicator)))))); 
+           Coord[1]=((int)(Math.floor(radius*Math.cos(Math.toRadians(degree*multiplicator)))));
+
+           
+           return Coord;
+            
+                   
         }
         
     }
