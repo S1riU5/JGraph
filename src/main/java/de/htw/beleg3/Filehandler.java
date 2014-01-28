@@ -15,10 +15,11 @@ public class Filehandler {
 	private Writer fw = null;
 	private FileReader fr;
 	private BufferedReader br;
-	
 	private String[] nodes;
 	private int[][] edges;
-
+	
+	
+	
 	public Filehandler() {
 		// ----
 	}
@@ -61,7 +62,6 @@ public class Filehandler {
 	private void loadGraphCSV(){
 		String file = "save.csv";
 		String line;
-		int[] raw_data = null;
 		int maxValue = 0;
 		int i;
 
@@ -86,7 +86,7 @@ public class Filehandler {
 				
 				// Each line have to be parsed through 
 				// a raw_data element
-				raw_data = new int[maxValue];
+				int[] raw_data = new int[maxValue];
 				
 				i = 0;
 				while (true){
@@ -98,8 +98,7 @@ public class Filehandler {
 						break;
 					}
 					//System.out.println(parseLine(line));
-					raw_data = parseLine(line);
-					intrprtData(raw_data, i);
+					parseLine(line);
 					i++;
 					
 				}
@@ -112,53 +111,41 @@ public class Filehandler {
 			//intrprtData(data, maxValue);
 	}
 	
-	private void intrprtData(int[] data, int line){
-		int from_node = 0;
-		int to_node = 0;
-		int val = 0;
-		
-		
-		if (data == null){
-			throw new IllegalStateException("No Data found!");
-		}
-		//First element into nodes.
-		nodes[line] = "" + data[0];	
-		from_node = data[0];
-		
-		for (int i = 1; i < data.length; i++){
-			// The second and following elements are the edges.
-			//FIXME  nullspam!
-			if (i % 2 != 0){
-				to_node = data[i];
-				continue;
-			}
-			else{
-				val = data[i];
-			}
-			if (val != 0){
-				edges[from_node][to_node] = val;	
 
-			}
-		}
-	}
 		
-	private int[] parseLine(String data){
-		// TODO Parser
-		// skip commentlines. They will be marked with # on the beginning of the line.
-		// # 
-		// Put first elements of each dataline to listofnodes, (*)then make the edges to the second element with the third element as value
-		// if here line doesn't end goto (*)
+	private void parseLine(String data){
+		
+		
 		List<String> bigdat;
-		int[] dat = new int[getNumOfElems(data)];
+		int[] dat;
+
+		int i = 0;
+	    int from_node = 0;
+	    int to_node = 0;
+	    
+	    dat = new int[getNumOfElems(data)];
 		bigdat = Arrays.asList(Pattern.compile(",").split(data));
-	    Iterator itr = bigdat.iterator(); // here was the prob with data
-	    int i = 0;
+	    Iterator itr = bigdat.iterator(); 
 	    while(itr.hasNext()){
 	    	String elem = (String) itr.next();
-	    	dat[i] = Integer.parseInt(elem);
+	    	
+	    	// FIXME Parse data from string into dataset (fFEP does nasty things)
+	    	
+	    	// Ok! Ill now do solving the problem here
+	    	// Think I could make it without the itrprt-methode
+	    	
+	    	if (i == 0){
+	    		from_node = this.fFEP();
+	    		nodes[from_node]  = elem;
+	    	}
+	    	else if(i % 2 != 0){
+	    		to_node = Integer.parseInt(elem);
+	    	}
+	    	else{
+	    		edges[from_node][to_node] = Integer.parseInt(elem);
+	    	}
 	    	i++;
 	    }
-		return dat;
 	}
 	
 	private int getNumOfElems(String data){
@@ -199,6 +186,22 @@ public class Filehandler {
 		catch ( IOException e){
 			e.printStackTrace();
 		}
+	}
+	
+	private int fFEP(){
+		/**
+		 * fFEP
+		 * 
+		 * find first empty place
+		 * 
+		 * @return place of the first empty element; If -1 list is full.
+		 */
+		for (int i = 0; i < this.nodes.length; i++){
+			if (this.nodes[i].length() <= 0){
+				return i;
+			}
+		}
+		return -1;
 	}
 
 }
