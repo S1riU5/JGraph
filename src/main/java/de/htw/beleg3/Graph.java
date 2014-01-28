@@ -2,8 +2,6 @@ package de.htw.beleg3;
 
 import static java.lang.Math.random;
 
-import java.io.IOException;
-
 
 public class Graph {
 	/**
@@ -26,14 +24,25 @@ public class Graph {
 		emptyDataSet();
 		// ---
 		//Testcase
-		permRand(11,15,30); // nodes, edges, maxValue
+		//this.addNode("test1");
+		//this.addNode("test2");
+		//this.addNode("test3");
+		//this.addEdge(0,1,45);
+		
+		permRand(50,50,30); // nodes, edges, maxValue
 		// Printing
 		printGraph();
 	    // ------
 		
 		fh = new Filehandler();
+		// Save data into file
 		fh.saveGraphCSV(nodes, adjacencyMatrix);
-		fh.openGraphCSV();
+		// load data from file
+		fh.loadData();
+		nodes = fh.loadNodes();
+		adjacencyMatrix = fh.loadEdges();
+		
+		printGraph();
 
 
 	}
@@ -56,7 +65,7 @@ public class Graph {
 		}
 	}
 	
-	public void permRand(int nodes, int edges, int maxValue){
+	private void permRand(int nodes, int edges, int maxValue){
 		/**
 		 * permRand()
 		 * 
@@ -181,12 +190,22 @@ public class Graph {
 		return this.nodes[x];
 	}
 	
-	public int[][] getAdjancencyMatrix(){
+	public int[][] getEdges(){
 		return this.adjacencyMatrix;
 	}
 	
 	public int getEdgeValue(int x, int y){
 		return this.adjacencyMatrix[x][y];
+	}
+	
+	public int getNumerOfNodes(){
+		int val = 0;
+		for (int i = 0; i < this.nodes.length; i++){
+			if (!this.nodes[i].equals("")){
+				val++;
+			}
+		}
+		return val;
 	}
 	
 	private boolean[] getEdgesOfNode(int node){
@@ -226,8 +245,5 @@ public class Graph {
 		}
 		return -1;
 	}
-	
-	
-	
 	
 }

@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -13,19 +12,35 @@ import java.util.regex.Pattern;
 //http://www.tutorials.de/java/197375-daten-aus-einer-excel-oder-csv-datei-eine-jtable-auslesen.html
 
 public class Filehandler {
-	Writer fw = null;
-	FileReader fr;
-	BufferedReader br;
+	private Writer fw = null;
+	private FileReader fr;
+	private BufferedReader br;
+	private String[] nodes;
+	private int[][] edges;
 	
-	int[] nodes;
-	int[][] edges;
-
+	
+	
 	public Filehandler() {
 		// ----
 	}
 	
+	public void loadData(){
+		this.loadGraphCSV();
+	}
+	
+	public String[] loadNodes(){
+		return nodes;
+	}
+	
+	public int[][] loadEdges(){
+		return edges;
+	}
+	
 	public void saveGraphCSV(String[] nodes, int[][] adjMat){
-		String printline = "#" + adjMat.length; // Amounts of Slots 
+		// First line have to begin with # 
+		// and shows the size of the System
+		// eg. #50 >>  50 nodes
+		String printline = "#" + adjMat.length;  
 		writeOpen("save.csv");
 		write(printline);
 		for (int i = 0; i < adjMat.length; i++){
@@ -44,10 +59,9 @@ public class Filehandler {
 		save();
 	}
 	
-	public void openGraphCSV(){
+	private void loadGraphCSV(){
 		String file = "save.csv";
 		String line;
-		int[][] data = null;
 		int maxValue = 0;
 		int i;
 
@@ -55,65 +69,90 @@ public class Filehandler {
 				fr = new FileReader(file);
 				br = new BufferedReader(fr);
 				line = br.readLine();
+				// First line begins with # 
+				// and shows the size of the System
+				// eg. #50 >>  50 nodes
 				if (line.startsWith("#")){
+					// cut out the # and read the number into an int
 					maxValue = Integer.parseInt((Arrays.asList( Pattern.compile("#").split(line) ).toArray(new String[1])[1]));
 				}
 				else{
 					throw new IllegalStateException("File corrupt!");
 				}
-				data = new int[maxValue][maxValue];
+				// Now we knew how big our system is
+				// so we can build the dataset.
+				nodes = new String[maxValue];
+				edges = new int[maxValue][maxValue];
+				
+				for (i = 0; i < this.edges.length; i++ ){
+					this.nodes[i] = "";
+					for (int j = 0; j < this.edges[0].length; j++){
+						this.edges[i][j] = -1;
+					}
+				}
+				
+				// Each line have to be parsed through 
+				// a raw_data element
+				int[] raw_data = new int[maxValue];
 				
 				i = 0;
 				while (true){
+					// read line after line
 					line = br.readLine();
-			
+					// May this will cause problems..
+					// TODO Are they null-lines followed by data-lines??
 					if (line == null){
 						break;
 					}
 					//System.out.println(parseLine(line));
+					parseLine(line);
 					i++;
+					
 				}
+				System.out.printf("INFO:\tDataloading succeeded.\n");
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}	
-			intrprtData(data, maxValue);
+			//intrprtData(data, maxValue);
 	}
 	
-	private void intrprtData(int[][] data, int val){
-		if (data == null){
-			throw new IllegalStateException("No Data found!");
-		}
-		nodes = new int[val];
-		edges = new int[val][val];
+
 		
-		for (int i = 0; i < data.length; i++){
-			for (int j = 0; j < data[i].length; j++){
-		         System.out.printf("%s\t", data[i][j]);
-			}
-			System.out.println();
-		}
+	private void parseLine(String data){
 		
 		
-	}
-	private int[] parseLine(String data){
-		// TODO Parser
-		// skip commentlines. They will be marked with # on the beginning of the line.
-		// # 
-		// Put first elements of each dataline to listofnodes, (*)then make the edges to the second element with the third element as value
-		// if here line doesn't end goto (*)
 		List<String> bigdat;
-		int[] dat = new int[getNumOfElems(data)];
+		int[] dat;
+
+		int i = 0;
+	    int from_node = 0;
+	    int to_node = 0;
+	    
+	    dat = new int[getNumOfElems(data)];
 		bigdat = Arrays.asList(Pattern.compile(",").split(data));
-	    Iterator itr = bigdat.iterator(); // here was the prob with data
-	    int i = 0;
+	    Iterator itr = bigdat.iterator(); 
 	    while(itr.hasNext()){
 	    	String elem = (String) itr.next();
-	    	dat[i] = Integer.parseInt(elem);
+	    	
+	    	// FIXME Parse data from string into dataset (fFEP does nasty things)
+	    	
+	    	// Ok! Ill now do solving the problem here
+	    	// Think I could make it without the itrprt-methode
+	    	
+	    	if (i == 0){
+	    		from_node = this.fFEP();
+	    		nodes[from_node]  = elem;
+	    	}
+	    	else if(i % 2 != 0){
+	    		to_node = Integer.parseInt(elem);
+	    	}
+	    	else{
+	    		edges[from_node][to_node] = Integer.parseInt(elem);
+	    	}
 	    	i++;
 	    }
-		return dat;
 	}
 	
 	private int getNumOfElems(String data){
@@ -135,6 +174,7 @@ public class Filehandler {
 			e.printStackTrace();
 		}
 	}
+	
 	private void write(String line){
 		try{
 			fw.append(line + "\n");
@@ -147,12 +187,28 @@ public class Filehandler {
 	private void save(){
 		try{
 			fw.close();
-			System.out.printf("Write information in file.\n" );
+			System.out.printf("INFO:\tWriting information in file.\n" );
 
 		}
 		catch ( IOException e){
 			e.printStackTrace();
 		}
+	}
+	
+	private int fFEP(){
+		/**
+		 * fFEP
+		 * 
+		 * find first empty place
+		 * 
+		 * @return place of the first empty element; If -1 list is full.
+		 */
+		for (int i = 0; i < this.nodes.length; i++){
+			if (this.nodes[i].length() <= 0){
+				return i;
+			}
+		}
+		return -1;
 	}
 
 }

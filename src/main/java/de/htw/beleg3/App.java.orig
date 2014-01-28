@@ -55,13 +55,14 @@ public class App
 {
     public static void main( String[] args )
     {
+<<<<<<< HEAD
         Graph graph = new Graph(50);
        // Window fenster = new Window();
         //fenster.frame();
-
+=======
         //Graph graph = new Graph(500);
-        //Window fenster = new Window();
+        Window fenster = new Window();
        
-
+>>>>>>> 97af55e6432ff1a37d8713c1dff893022c61cdd1
     }
 }
