@@ -198,6 +198,16 @@ public class Graph {
 		return this.adjacencyMatrix[x][y];
 	}
 	
+	public int getNumerOfNodes(){
+		int val = 0;
+		for (int i = 0; i < this.nodes.length; i++){
+			if (!this.nodes[i].equals("")){
+				val++;
+			}
+		}
+		return val;
+	}
+	
 	private boolean[] getEdgesOfNode(int node){
 		boolean[] listOfNodes = new boolean[this.nodes.length];
 		for (int i = 0; i < listOfNodes.length; i++)
