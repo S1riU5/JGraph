@@ -11,6 +11,7 @@ public class Graph {
 	private String[] nodes;
 	private Filehandler fh;
 	private Searcher sebSearcher = new Searcher();
+	private boolean[] activeNodes;
 	
 	public Graph(int MAX){
 		/**
@@ -154,7 +155,7 @@ public class Graph {
 		return val;
 	}
 	
-	private boolean exists(String elem){
+	public boolean exists(String elem){
 		for (int i = 0; i < nodes.length; i++){
 			if (nodes[i].equals(elem)){
 				return true;
@@ -233,6 +234,19 @@ public class Graph {
 			this.adjacencyMatrix[i][node] = -1;
 		}
 		nodes[node] = "";
+	}
+	
+	public boolean[] getActiveNodes(){
+		activeNodes = new boolean[nodes.length];
+		for (int i = 0; i < activeNodes.length; i++){
+			if (nodes[i].equals("")){
+				activeNodes[i] = false;
+			}
+			else{
+				activeNodes[i] = true;
+			}
+		}
+		return activeNodes;
 	}
 	
 	private int fFEP(){
