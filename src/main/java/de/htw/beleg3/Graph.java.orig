@@ -30,7 +30,11 @@ public class Graph {
 		this.addNode("test3");
 		this.addEdge(0,1,45);
 		
-		//permRand(15,25,30); // nodes, edges, maxValue
+<<<<<<< HEAD
+		//permRand(50,50,30); // nodes, edges, maxValue
+=======
+		permRand(15,25,30); // nodes, edges, maxValue
+>>>>>>> ae66405c7f6cb4c1eab93614acf51d608fc9d9f0
 		// Printing
 		printGraph();
 	    // ------
