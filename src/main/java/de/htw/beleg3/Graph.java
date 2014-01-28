@@ -1,7 +1,7 @@
 package de.htw.beleg3;
 
 import static java.lang.Math.random;
-
+import static java.lang.System.out;
 
 public class Graph {
 	/**
@@ -10,6 +10,7 @@ public class Graph {
 	private int[][] adjacencyMatrix;
 	private String[] nodes;
 	private Filehandler fh;
+	private Searcher sebSearcher = new Searcher();
 	
 	public Graph(int MAX){
 		/**
@@ -24,12 +25,12 @@ public class Graph {
 		emptyDataSet();
 		// ---
 		//Testcase
-		//this.addNode("test1");
-		//this.addNode("test2");
-		//this.addNode("test3");
-		//this.addEdge(0,1,45);
+		this.addNode("test1");
+		this.addNode("test2");
+		this.addNode("test3");
+		this.addEdge(0,1,45);
 		
-		permRand(50,50,30); // nodes, edges, maxValue
+		//permRand(50,50,30); // nodes, edges, maxValue
 		// Printing
 		printGraph();
 	    // ------
@@ -43,6 +44,11 @@ public class Graph {
 		adjacencyMatrix = fh.loadEdges();
 		
 		printGraph();
+		boolean[] nodelistvisited = new boolean[nodes.length]; 
+		for (int i = 0; i < this.nodes.length; i++){
+			nodelistvisited[i] = false;
+		}
+		out.printf("%s\n", sebSearcher.DFS(this.adjacencyMatrix, nodelistvisited, 0, 1, 0));
 
 
 	}

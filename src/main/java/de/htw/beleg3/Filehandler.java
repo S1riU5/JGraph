@@ -1,4 +1,5 @@
 package de.htw.beleg3;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,7 +10,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
-//http://www.tutorials.de/java/197375-daten-aus-einer-excel-oder-csv-datei-eine-jtable-auslesen.html
 
 public class Filehandler {
 	private Writer fw = null;
