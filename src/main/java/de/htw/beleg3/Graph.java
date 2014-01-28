@@ -30,7 +30,7 @@ public class Graph {
 		this.addNode("test3");
 		this.addEdge(0,1,45);
 		
-		//permRand(15,25,30); // nodes, edges, maxValue
+		//permRand(50,50,30); // nodes, edges, maxValue
 		// Printing
 		printGraph();
 	    // ------
@@ -48,7 +48,6 @@ public class Graph {
 		for (int i = 0; i < this.nodes.length; i++){
 			nodelistvisited[i] = false;
 		}
-		out.printf("%s\n", sebSearcher.DFS(this.adjacencyMatrix, nodelistvisited, 0, 1, 0));
 
 
 	}
