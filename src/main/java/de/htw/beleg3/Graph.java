@@ -24,12 +24,12 @@ public class Graph {
 		emptyDataSet();
 		// ---
 		//Testcase
-		this.addNode("test1");
-		this.addNode("test2");
-		this.addNode("test3");
-		this.addEdge(0,1,45);
+		//this.addNode("test1");
+		//this.addNode("test2");
+		//this.addNode("test3");
+		//this.addEdge(0,1,45);
 		
-		//permRand(11,15,30); // nodes, edges, maxValue
+		permRand(50,50,30); // nodes, edges, maxValue
 		// Printing
 		printGraph();
 	    // ------
@@ -190,7 +190,7 @@ public class Graph {
 		return this.nodes[x];
 	}
 	
-	public int[][] getAdjancencyMatrix(){
+	public int[][] getEdges(){
 		return this.adjacencyMatrix;
 	}
 	

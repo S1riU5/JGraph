@@ -84,6 +84,13 @@ public class Filehandler {
 				nodes = new String[maxValue];
 				edges = new int[maxValue][maxValue];
 				
+				for (i = 0; i < this.edges.length; i++ ){
+					this.nodes[i] = "";
+					for (int j = 0; j < this.edges[0].length; j++){
+						this.edges[i][j] = -1;
+					}
+				}
+				
 				// Each line have to be parsed through 
 				// a raw_data element
 				int[] raw_data = new int[maxValue];
