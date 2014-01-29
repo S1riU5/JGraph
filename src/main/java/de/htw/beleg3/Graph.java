@@ -11,7 +11,7 @@ public class Graph {
 	private String[] nodes;
 	private Filehandler fh;
 	private boolean[] activeNodes;
-	private Searcher se;
+	//private Searcher se;
 	
 	public Graph(int MAX){
 		/**
@@ -213,7 +213,7 @@ public class Graph {
 		return val;
 	}
 	
-	private boolean[] getEdgesOfNode(int node){
+	public boolean[] getEdgesOfNode(int node){
 		boolean[] listOfNodes = new boolean[this.nodes.length];
 		for (int i = 0; i < listOfNodes.length; i++)
 			listOfNodes[i] = false;
@@ -275,5 +275,6 @@ public class Graph {
 		}
 		return -1;
 	}
+	
 	
 }
