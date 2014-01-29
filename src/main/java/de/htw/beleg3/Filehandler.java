@@ -93,7 +93,6 @@ public class Filehandler {
 				
 				// Each line have to be parsed through 
 				// a raw_data element
-				int[] raw_data = new int[maxValue];
 				
 				i = 0;
 				while (true){
