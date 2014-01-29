@@ -20,6 +20,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
@@ -35,6 +36,7 @@ public class Window extends JFrame {
     JButton save;
     JButton load;
     JButton Save;
+    JButton reP;
     //Textfields
     JTextField nodename;
     JTextField edgelength;
@@ -43,7 +45,11 @@ public class Window extends JFrame {
     JLabel nodetext;
     // panels 
     JPanel menu;
+    JPanel DPan;
    
+    
+    //String Array
+       String [] snodename;
     
     // dropdown menu
     JComboBox dropNodename;
@@ -117,6 +123,7 @@ public class Window extends JFrame {
         addEdge = new JButton("Add Edge");
         save = new JButton("Save");
         load = new JButton("Load");
+        reP = new JButton("Repaint");
         
         //create Label with text
         nodetext = new JLabel("Enter nodename");
@@ -148,6 +155,7 @@ public class Window extends JFrame {
         removeEdge.setBounds(0, 225, 195, 30);
         save.setBounds(0, 270, 195, 30);
         load.setBounds(0, 315, 195, 30);
+        reP.setBounds(0, 350, 195, 30);
         
         
         //Instructions (label)
@@ -177,6 +185,8 @@ public class Window extends JFrame {
         menu.add(removeEdge);
         menu.add(save);
         menu.add(load);
+        menu.add(reP);
+        
         
         //TEXTFIELDS
         menu.add(nodetext);          
@@ -189,6 +199,15 @@ public class Window extends JFrame {
      
         
         //add actionlistener to buttons
+        
+        reP.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                repaint();
+                
+                
+            }
+        });
             
         addNode.addActionListener(new ActionListener() {
             
@@ -227,7 +246,8 @@ public class Window extends JFrame {
         addEdge.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent arg0) {
-                // TODO Auto-generated method stub
+                ADDEDGE edge = new ADDEDGE(Window.this, Drakular);
+                
                 
             }
         });
@@ -300,7 +320,7 @@ public class Window extends JFrame {
            return Coord;
             
                    
-        }
+        }}
         
         //FIXME DIALOG FERTIG MACHEN
         private class ADDEDGE extends JDialog{
@@ -311,44 +331,111 @@ public class Window extends JFrame {
             //Dropdown menus
             JComboBox startege;
             JComboBox endedge;
+            //JSlide
+            JSlider slid;
+                
+            // int
+            int jmin = 1;
+            int jmax = 30;
+            int jdef = 15;
             
-            
-            public ADDEDGE(JFrame f){
+            public ADDEDGE(JFrame f, Graph Drakular){
                 super(f);
                 setTitle("Add Edge");
                 setResizable(false);
-                setSize(300, 300);
+                
                 setLocationRelativeTo(f);
                 frame();
                 setModal(true);
                 pack();
+                setVisible(true);
             }
             
             private void frame(){
-             
-                ok = new JButton();
-                startege = new JComboBox();
-                endedge = new JComboBox();
+                slid = new JSlider(JSlider.HORIZONTAL,jmin,jmax,jdef);
+                DPan = new JPanel();
+                ok = new JButton("  OK  ");
+                startege = new JComboBox(Drakular.getNodes());
                 
-                add(ok);
-                add(startege);
-                add(endedge);
+                //TODO Listener aufrufen
+              
+                        
+                        
+                add(DPan);     
+                DPan.add(slid);
+                DPan.add(startege);
+                DPan.add(ok);
+                //TODO 2. dropdown menu
+                //add(endedge);
+                //endedge.setEnabled(false);
                 
-           ok.addActionListener(new ActionListener() {
+                
+                //add listener
+                ok.addActionListener(new ActionListener() {
             
-            public void actionPerformed(ActionEvent arg0) {
-                // TODO Auto-generated method stub
+                    public void actionPerformed(ActionEvent e) {
+                        int x = startege.getSelectedIndex();
+                        int y = endedge.getSelectedIndex();
+                        int val = slid.getValue();
+                        System.out.println("x:"+ x + "y:" + y + " value: " + val);
+                        
+                        try{
+                          Drakular.addEdge(x, y, val);  
+                        }catch(IllegalArgumentException iae){
+                            System.err.println(iae.getMessage());
+                        }
+                        
+                        setVisible(false);
+                        repaint();
+                
+                    }
+                    });
+                
+                startege.addItemListener(new ItemListener() {
+                    
+                    public void itemStateChanged(ItemEvent e) {
+                        
+                        if(e.getStateChange()==ItemEvent.SELECTED){
+                            int  Indexarray = startege.getSelectedIndex();
+                            int  numberOfEdges = Drakular.getEdgesOfNode(Indexarray).length;
+                            snodename = new String[Drakular.getNodes().length];
+                            
+                           
+                            
+                            for (int i=0; i<Drakular.getNodes().length; i++){
+                                   if (!Drakular.getEdgesOfNode(Indexarray)[i]){
+                                       snodename[i] = Drakular.getNodeName(i);
+                                   }else {
+                                    snodename[i] = " - ";
+                                }
+                            }
+                            
+                            endedge = new JComboBox(snodename);
+                            DPan.add(endedge);
+                            startege.enable(false);
+                            
+                            pack();
+                            
+                            
+                            
+                        }
+                        }
+                            
+                       
+                     
+                });
+               
+                
+                
                 
             }
-        });
-                
-            }
+            
             
           
             
         }
         
-    }
+    
     
   
             
