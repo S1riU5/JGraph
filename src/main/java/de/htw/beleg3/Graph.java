@@ -22,21 +22,37 @@ public class Graph {
 		
 		adjacencyMatrix = new int[MAX][MAX];
 		nodes = new String[MAX];
+		se = new Searcher();
+		fh = new Filehandler();
+
 		
 		emptyDataSet();
 		// ---
 		//Testcase
-		//this.addNode("test1");
-		//this.addNode("test2");
-		//this.addNode("test3");
-		//this.addEdge(0,1,45);
+		this.addNode("1");
+		this.addNode("2");
+		this.addNode("3");
+		this.addNode("4");
+		this.addNode("5");
+		this.addNode("6");
+		this.addNode("7");
+		this.addNode("8");
+		this.addNode("9");
+		this.addEdge(0,8,45);
+		this.addEdge(8,2,45);
+		this.addEdge(2,1,45);
+		this.addEdge(1,6,45);
+		this.addEdge(6,7,45);
 		
-		permRand(10,7,30); // nodes, edges, maxValue
+		this.addEdge(1,5,45);
+		this.addEdge(5,4,45);
+		this.addEdge(4,3,45);
+		
+		//permRand(10,7,30); // nodes, edges, maxValue
 		// Printing
 //		printGraph();
 	    // ------
 		
-		fh = new Filehandler();
 //		// Save data into file
 //		fh.saveGraphCSV(nodes, adjacencyMatrix);
 //		// load data from file
@@ -49,7 +65,8 @@ public class Graph {
 //		for (int i = 0; i < this.nodes.length; i++){
 //			nodelistvisited[i] = false;
 //		}
-
+		se.backtrack(7, se.DMS(this.adjacencyMatrix, 0, 7));
+		
 	}
 	
 	private void emptyDataSet(){
