@@ -31,12 +31,12 @@ public class Graph {
 		//this.addNode("test3");
 		//this.addEdge(0,1,45);
 		
-		permRand(10,25,30); // nodes, edges, maxValue
+		permRand(10,7,30); // nodes, edges, maxValue
 		// Printing
 //		printGraph();
 	    // ------
 		
-//		fh = new Filehandler();
+		fh = new Filehandler();
 //		// Save data into file
 //		fh.saveGraphCSV(nodes, adjacencyMatrix);
 //		// load data from file
@@ -250,7 +250,8 @@ public class Graph {
 	
 	public void save(){
 	    //FIXME java.lang.NullPointerException
-	    fh.saveGraphCSV(nodes, adjacencyMatrix);
+			fh.saveGraphCSV(nodes, adjacencyMatrix);
+		
 	}
 	
 	public void load(){

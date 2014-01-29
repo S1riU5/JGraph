@@ -43,7 +43,7 @@ public class Filehandler {
 		String printline = "#" + adjMat.length;  
 		writeOpen("save.csv");
 		write(printline);
-		for (int i = 0; i < adjMat.length; i++){
+		for (int i = 0; i < nodes.length; i++){
 			if (!nodes[i].equals(""))
 				printline = nodes[i];
 			else{
