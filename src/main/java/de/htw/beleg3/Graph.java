@@ -10,6 +10,7 @@ public class Graph {
 	private int[][] adjacencyMatrix;
 	private String[] nodes;
 	private Filehandler fh;
+	private boolean[] activeNodes;
 	
 	public Graph(int MAX){
 		/**
@@ -24,29 +25,29 @@ public class Graph {
 		emptyDataSet();
 		// ---
 		//Testcase
-		this.addNode("test1");
-		this.addNode("test2");
-		this.addNode("test3");
-		this.addEdge(0,1,45);
+//		this.addNode("test1");
+//		this.addNode("test2");
+//		this.addNode("test3");
+//		this.addEdge(0,1,45);
 		
 		//permRand(50,50,30); // nodes, edges, maxValue
 		// Printing
-		printGraph();
+//		printGraph();
 	    // ------
 		
-		fh = new Filehandler();
-		// Save data into file
-		fh.saveGraphCSV(nodes, adjacencyMatrix);
-		// load data from file
-		fh.loadData();
-		nodes = fh.loadNodes();
-		adjacencyMatrix = fh.loadEdges();
+//		fh = new Filehandler();
+//		// Save data into file
+//		fh.saveGraphCSV(nodes, adjacencyMatrix);
+//		// load data from file
+//		fh.loadData();
+//		nodes = fh.loadNodes();
+//		adjacencyMatrix = fh.loadEdges();
 		
-		printGraph();
-		boolean[] nodelistvisited = new boolean[nodes.length]; 
-		for (int i = 0; i < this.nodes.length; i++){
-			nodelistvisited[i] = false;
-		}
+//		printGraph();
+//		boolean[] nodelistvisited = new boolean[nodes.length]; 
+//		for (int i = 0; i < this.nodes.length; i++){
+//			nodelistvisited[i] = false;
+//		}
 
 	}
 	
@@ -245,6 +246,17 @@ public class Graph {
 		}
 		return activeNodes;
 	}
+	
+	public void save(){
+	    //FIXME java.lang.NullPointerException
+	    fh.saveGraphCSV(nodes, adjacencyMatrix);
+	}
+	
+	public void load(){
+	    fh.loadData();
+	    nodes = fh.loadNodes();
+        adjacencyMatrix = fh.loadEdges();
+     }
 	
 	private int fFEP(){
 		/**

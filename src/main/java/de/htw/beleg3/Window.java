@@ -47,6 +47,8 @@ public class Window extends JFrame {
     JComboBox dropNodename;
     JComboBox startege;
     JComboBox endedge;
+    
+    //Graph Object
     Graph Drakular;
     
     
@@ -127,7 +129,7 @@ public class Window extends JFrame {
         dropNodename = new JComboBox();
         
         //Objects
-        Drakular = new Graph(50);
+        Drakular = new Graph(500);
           
         // set textformat
         Font schrift = (nodetext.getFont().deriveFont(Font.BOLD + Font.ITALIC,12));
@@ -190,11 +192,37 @@ public class Window extends JFrame {
         addNode.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e) {
-                Drakular.addNode(nodename.getText());
+                try{
+                    Drakular.addNode(nodename.getText());
+                    
+                }catch(IllegalArgumentException iae){
+                    System.err.println(iae.getMessage());
+                }
+                
+                
                 repaint();
                 
             }
         });
+        
+        save.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent arg0) {
+                Drakular.save();
+                repaint();
+                
+            }
+        });
+        
+        load.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent arg0) {
+                Drakular.load();
+                repaint();
+                
+            }
+        });
+       
         
   
         // set windwo Visable
@@ -269,14 +297,11 @@ public class Window extends JFrame {
         
     }
     
-    private class Boxhandler implements ItemListener{
-       
-        public void itemStateChanged(ItemEvent event) {
-            // TODO Auto-generated method stub
+  
             
-        }
         
-    }
+        
+    
  
         
    
