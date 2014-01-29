@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,11 +43,11 @@ public class Window extends JFrame {
     JLabel nodetext;
     // panels 
     JPanel menu;
+   
     
     // dropdown menu
     JComboBox dropNodename;
-    JComboBox startege;
-    JComboBox endedge;
+   
     
     //Graph Object
     Graph Drakular;
@@ -223,7 +224,13 @@ public class Window extends JFrame {
             }
         });
        
-        
+        addEdge.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+        });
   
         // set windwo Visable
         setVisible(true);
@@ -293,6 +300,52 @@ public class Window extends JFrame {
            return Coord;
             
                    
+        }
+        
+        //FIXME DIALOG FERTIG MACHEN
+        private class ADDEDGE extends JDialog{
+            //mainpan
+            JPanel AddEdgePan;
+            // ok Button
+            JButton ok;
+            //Dropdown menus
+            JComboBox startege;
+            JComboBox endedge;
+            
+            
+            public ADDEDGE(JFrame f){
+                super(f);
+                setTitle("Add Edge");
+                setResizable(false);
+                setSize(300, 300);
+                setLocationRelativeTo(f);
+                frame();
+                setModal(true);
+                pack();
+            }
+            
+            private void frame(){
+             
+                ok = new JButton();
+                startege = new JComboBox();
+                endedge = new JComboBox();
+                
+                add(ok);
+                add(startege);
+                add(endedge);
+                
+           ok.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+        });
+                
+            }
+            
+          
+            
         }
         
     }
