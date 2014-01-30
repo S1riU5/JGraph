@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -27,8 +29,28 @@ import javax.swing.SwingUtilities;
 import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
 
 public class Window extends JFrame {
-    int nsize = 400;
-    int csize = 400;
+    
+	
+	//********************************DeklarateConstantFrameLayout****************************************
+	final int labelHight = 550;
+	final int labelWidth = 500; 
+	final int labelCoordY = 0;
+	final int labelCoordX = 0;
+	final int panelCoordX =500 ;
+	final int panelCoordY = 0;
+	final int panelHight = 500;
+	final int panelWidth = 200;
+	final int textHight = 15;
+	final int textLength = 150;
+	final int textCoordX = 50;
+	final int textCoordY = 0;
+	final int buttonCoordX = 0;
+	final int buttonCoordY = 15;
+	final int buttonWidth = 195;
+	final int buttonHight = 30;
+	final int nsize = 400;
+    final int csize = 400;
+  //********************************DeklarateJButtons************************************************
     JButton addNode;
     JButton addEdge;
     JButton removeNode;
@@ -37,35 +59,35 @@ public class Window extends JFrame {
     JButton load;
     JButton Save;
     JButton reP;
-    //Textfields
+    JButton search;
+  //********************************DeklarateTextfields***********************************************
     JTextField nodename;
     JTextField edgelength;
-    // labels
+  //********************************DeklarateLabels***************************************************
     JLabel edgetext;
     JLabel nodetext;
-    // panels 
+    DrawLine draw;
+  //********************************DeklaratePanels******************************************************** 
     JPanel menu;
     JPanel DPan;
    
     
-    //String Array
-       String [] snodename;
+  //********************************DeklarateString Array*************************************************
+       String [] snodename; 
     
-    // dropdown menu
-    JComboBox dropNodename;
-   
-    
-    //Graph Object
+    //********************************DeklarateGraph Object***************************************************
     Graph Drakular;
     
     
-    //Draw line  Object
     
-    DrawLine draw;
+   
     
     
    
-
+    /**
+     * Constructer: Window (MainFrame)
+     */
+    //**************************************ConstructorOfWindwo********************************************
     public Window() {
         super("Graph");
         degree(1);
@@ -73,13 +95,19 @@ public class Window extends JFrame {
        
 
     }
+    /**
+     * Runloope
+     */
+    //**********************************************runloopMethod******************************************
     public void runloop() {
         framesettings();
         frame();
-        drop();
 
     }
-    
+    /**
+     * get contains framesettings 
+     */
+    //**********************************************framesettingsMethod************************************
     public void framesettings(){
         
         setSize(700, 550);
@@ -90,6 +118,12 @@ public class Window extends JFrame {
         
     }
     
+    /**
+     * calculate the distance between all points in Graph()
+     * @param nodenumber
+     * @return degree
+     */
+    //**************************************************degree***************************************************
     private double degree(int nodenumber){
         
         return Math.toDegrees(2*Math.PI)/nodenumber;
@@ -101,22 +135,20 @@ public class Window extends JFrame {
     
     
     
-    public void drop(){
-    
-    }
 
   
 
     /**
      * Frame method to create the Frame and manage the entire Layout
      */
+    //*****************************************frameMethod************************************************
     public void frame() {
         // set layout on frame
         setLayout(null);
 
         // create JPanel
         menu = new JPanel();
-        // create Buttons
+        // initialize Buttons
         addNode = new JButton("Add Node");
         removeNode = new JButton("Remove Node");
         removeEdge = new JButton("Remove Edge");
@@ -124,61 +156,58 @@ public class Window extends JFrame {
         save = new JButton("Save");
         load = new JButton("Load");
         reP = new JButton("Repaint");
+        search = new JButton("Search");
         
-        //create Label with text
+        //initialize Label with text
         nodetext = new JLabel("Enter nodename");
         edgetext = new JLabel("Enter edgelength");
         draw = new DrawLine();
-        //crete textlable
+        //initialize textlable
         nodename = new JTextField();
         edgelength = new JTextField();
-        
-        //create dropdown menu
-        dropNodename = new JComboBox();
-        
-        //Objects
+       
+        //initialize Objects
         Drakular = new Graph(500);
           
-        // set textformat
+        // initialize textformat
         Font schrift = (nodetext.getFont().deriveFont(Font.BOLD + Font.ITALIC,12));
          
         //set Layout1 on Panel
         menu.setLayout(null);
         
         
-       //set Position
-        menu.setBounds(500,0, 195, 500);
+        //********************************************setCoordinatesPanel**********************************************
+        menu.setBounds(panelCoordX, panelCoordY, panelWidth, panelHight);
+        //********************************************setCoordinatesButtons********************************************
+        addNode.setBounds(buttonCoordX, 4*buttonCoordY,buttonWidth, buttonHight);                       
+        removeNode.setBounds(buttonCoordX,10*buttonCoordY, buttonWidth, buttonHight);
+        addEdge.setBounds(buttonCoordX, 7*buttonCoordY, buttonWidth, buttonHight);                     
+        removeEdge.setBounds(buttonCoordX, 13*buttonCoordY, buttonWidth, buttonHight);
+        save.setBounds(buttonCoordX, 16*buttonCoordY, buttonWidth, buttonHight);
+        load.setBounds(buttonCoordX, 19*buttonCoordY, buttonWidth, buttonHight);
+        reP.setBounds(buttonCoordX, 25*buttonCoordY, buttonWidth, buttonHight);
+        search.setBounds(buttonCoordX, 22*buttonCoordY, buttonWidth, buttonHight);
         
-        addNode.setBounds(0, 0, 195, 30);                       
-        removeNode.setBounds(0, 180, 195, 30);
-        addEdge.setBounds(0, 90, 195, 30);                     
-        removeEdge.setBounds(0, 225, 195, 30);
-        save.setBounds(0, 270, 195, 30);
-        load.setBounds(0, 315, 195, 30);
-        reP.setBounds(0, 350, 195, 30);
-        
-        
-        //Instructions (label)
-        nodetext.setBounds(50, 30, 150, 15);
-        edgetext.setBounds(50, 120, 150, 15);
-        draw.setBounds(0, 0, 500, 700);
-        // textfields
-        nodename.setBounds(0, 45, 195, 30);
-        edgelength.setBounds(0, 135, 195, 30);
+        //********************************************setCoordinatesLabels*******************************************
+        nodetext.setBounds(textCoordX,textCoordY, textLength, textHight); 
+        draw.setBounds(labelCoordX, labelCoordY,labelWidth,labelHight);
+        //********************************************setCoordinatestextfields******************************************
+        nodename.setBounds(buttonCoordX, buttonCoordY, buttonWidth, buttonHight);
+       
         
        
       
        
-        //add Textformater to text
+        //*********************************************settextformat2text**********************************************
         nodetext.setFont(schrift); 
-        edgetext.setFont(schrift);
+       
         
         
-        // add JPanel and Label to Frame
+        //**************************************************add2Frame****************************************************
         add(menu);
         add(draw);
-       // add Components to Panel (menu)
-        //BUTTONS
+        
+        //***********************************************add2PanBUTTONS*************************************************
         menu.add(addNode);           
         menu.add(addEdge);
         menu.add(removeNode);        
@@ -186,20 +215,23 @@ public class Window extends JFrame {
         menu.add(save);
         menu.add(load);
         menu.add(reP);
+        menu.add(search);
         
         
-        //TEXTFIELDS
-        menu.add(nodetext);          
-        menu.add(edgetext);
+        //********************************************add2PanEXTFIELDS*************************************************
+        menu.add(nodetext);   
        
-        //TEXTLABLE
+        //*******************************************Add2PanTEXTLABLE**********************************************************
         menu.add(nodename);          
-        menu.add(edgelength);
+        
         
      
         
-        //add actionlistener to buttons
-        
+        //************************************add actionlistener to buttons*************************************************
+        /**
+         * repaint the Windwo
+         */
+        //************************************repaintActionlistener*************************************************************
         reP.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e) {
@@ -208,7 +240,10 @@ public class Window extends JFrame {
                 
             }
         });
-            
+        /**
+         * add Node to Graph
+         */
+        //**************************************AddNodeActionlistener**************************************************
         addNode.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e) {
@@ -224,7 +259,10 @@ public class Window extends JFrame {
                 
             }
         });
-        
+        /**
+         * save Graph
+         */
+        //*************************************SaveActionListener************************************************************
         save.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent arg0) {
@@ -233,7 +271,10 @@ public class Window extends JFrame {
                 
             }
         });
-        
+        /**
+         * Load Graph
+         */
+        //****************************** loadActionlistener*****************************************************
         load.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent arg0) {
@@ -242,30 +283,77 @@ public class Window extends JFrame {
                 
             }
         });
-       
+       /**
+        * add Edge
+        */
+        //*************************************addEdgeActionlistener*********************************************
         addEdge.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent arg0) {
-                ADDEDGE edge = new ADDEDGE(Window.this, Drakular);
+                ADDdelEDGE edge = new ADDdelEDGE(Window.this, Drakular,true);
+                repaint();
                 
                 
             }
         });
+        //*****************************removeEdgeActionlistener*********************************************
+        /**
+         * delete edge to graph
+         */
+        removeEdge.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				ADDdelEDGE Deledge = new ADDdelEDGE(Window.this, Drakular, false);
+				repaint();
+				
+				
+			}
+		});
+        /**
+         * Add Node to graph
+         */
+        removeNode.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				RemNode rm = new RemNode(Window.this, Drakular);
+				repaint();
+				
+			}
+		});
+        
+        
   
-        // set windwo Visable
+        //***********************************set windwo Visable***********************************
         setVisible(true);
 
     }
     
-    
+    /**
+     * 
+     * DrawLine class extends JLable
+     * to draw the Graph
+     *
+     */
+    //*************************************DrawLine************************************************
     private class DrawLine extends JLabel{
         
+    	
+    	/**
+    	 * create Nodes and Edges on  DrawLine
+    	 */
+    	//*********************************paintComponent@Override************************************
         @Override
         protected void paintComponent(Graphics g) {
             int tmp[], tmp2[] = new int [2];
             int tmpCoord[], tmpCoord2[] = new int [2];
                int numberofnodes = Drakular.getNumerOfNodes();  
-               //g.drawOval(25+(csize/2)-(nsize/2),25+(csize/2)-(nsize/2),nsize ,nsize);
+               /*
+                * sample Oval
+                * g.drawOval(25+(csize/2)-(nsize/2),25+(csize/2)-(nsize/2),nsize ,nsize);
+                */
+               //*****************************************Antialaising***********************************
+               Graphics2D g2d = (Graphics2D) g;
+               g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
            for(int i=0; i<numberofnodes; i++){
                
                  
@@ -274,6 +362,7 @@ public class Window extends JFrame {
                tmp = getCoord(degree(Drakular.getNumerOfNodes()),(csize/2),i);
                g.setColor(Color.LIGHT_GRAY);
                g.fillOval(tmpCoord[0]+tmp[0],tmpCoord[1]+tmp[1],25,25);
+               g.setColor(Color.GREEN);
                g.drawString(Drakular.getNodeName(i), tmpCoord[0]+tmp[0], tmpCoord[1]+tmp[1]);
               
               
@@ -293,16 +382,25 @@ public class Window extends JFrame {
                       int y2 = tmpCoord2[1]+tmp2[1]+linepusher;
                       g.drawLine(x1,y1 ,x2 ,y2);      
                       g.drawString(""+Drakular.getEdgeValue(i, j), (x1+x2)/2, (y1+y2)/2);
+                     
                   }
                   
               }
               
            }
            super.paintComponent(g);
-         
+           
            
         }
-        
+        /**
+         * 
+         * @param posX int
+         * @param posY int 
+         * @param high int 
+         * @param weidth int 
+         * @return int tmp [] draw Coordinates 
+         */
+        //***************************getCenter************************************************
         private int[] getCenter(int posX, int posY, int high,int weidth){
             int[] tmp = new int[2];
             
@@ -311,25 +409,103 @@ public class Window extends JFrame {
             
             return tmp;
         }
+        /**
+         * 
+         * @param degree
+         * @param radius
+         * @param multiplicator
+         * @return int Coords [] calculate with coords the position of a Node
+         */
+        //********************************getCoords**********************************************
         private int[] getCoord(double degree , int radius, int multiplicator ){
            int[] Coord = new int[2];
            Coord[0]=((int)(Math.floor((int)(radius*Math.sin(Math.toRadians(degree*multiplicator)))))); 
            Coord[1]=((int)(Math.floor(radius*Math.cos(Math.toRadians(degree*multiplicator)))));
-
+           
            
            return Coord;
             
                    
         }}
-        
-        //FIXME DIALOG FERTIG MACHEN
-        private class ADDEDGE extends JDialog{
+    /**
+     * 
+     * RemNode Class 
+     * frame to select a Node to delete
+     *
+     */
+    //*********************************RemNode Class************************************************
+    private class RemNode extends JDialog{
+    	JPanel remPan;
+    	JComboBox nodes;
+    	JButton ok;
+    	JButton close;
+    	public RemNode(JFrame Window,Graph Drakular) {
+    		super(Window);
+			setTitle("Remove Node");
+			initializeContent();
+			
+			setVisible(true);
+			pack();
+
+		}
+    	
+    	/**
+    	 * Method to init Content of Frame
+    	 */
+    	//***********************************InitializeContentMethod******************************
+    	public void  initializeContent(){
+    		remPan = new JPanel();
+    		ok = new JButton(" OK ");
+    		close = new JButton("Close");
+    		nodes = new JComboBox(Drakular.getNodes());
+    		add(remPan);
+    		remPan.add(nodes);
+    		remPan.add(ok);
+    		remPan.add(close);
+    		
+    		//********************************Actionlistener*************************************
+    		/**
+    		 * Delet Node
+    		 */
+    		ok.addActionListener(new ActionListener() {
+				//******************************Action*******************************************
+				public void actionPerformed(ActionEvent arg0) {
+					int noddel;
+					noddel = nodes.getSelectedIndex();
+					Drakular.deleteNode(noddel);
+					setVisible(false);
+					
+					//TODO Name geht verloren
+					Window.this.repaint();
+				}
+			});
+    		//********************************Actionlistener**************************************
+    		/**
+    		 * Close dialogframe
+    		 */
+    		close.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent arg0) {
+					setVisible(false);
+					
+				}
+			});
+    	}
+    	//**********************************ActionListener************************************
+    	
+    	
+    }
+        /**
+         * Create an dialog frame 
+         */
+        //**********************Dialog Window ADD and REMOVE EDGE*********************************
+        private class ADDdelEDGE extends JDialog{
             //mainpan
             JPanel AddEdgePan;
             // ok Button
             JButton ok;
             //Dropdown menus
-            JComboBox startege;
+            JComboBox startedge;
             JComboBox endedge;
             //JSlide
             JSlider slid;
@@ -338,49 +514,64 @@ public class Window extends JFrame {
             int jmin = 1;
             int jmax = 30;
             int jdef = 15;
-            
-            public ADDEDGE(JFrame f, Graph Drakular){
+            boolean adddel;
+            /**
+             *  Create an dialog frame
+             * @param f   type JFrame
+             * @param Drakular typ Graph
+             * @param adddel typ boolen to manage Del/add
+             */
+          //**************************Constructor of ADDdelEDGE****************************************** 
+            public ADDdelEDGE(JFrame f, Graph Drakular,boolean test){
                 super(f);
                 setTitle("Add Edge");
-                setResizable(false);
-                
+                setResizable(false);               
                 setLocationRelativeTo(f);
                 frame();
-                setModal(true);
+                setModal(true);       
+                this.adddel = test;
                 pack();
                 setVisible(true);
             }
-            
+           /**
+            * Method to manage the Buttons of dialogframe ADDdelEDGE
+            */
+            //********************************** frame method*******************************************          
             private void frame(){
                 slid = new JSlider(JSlider.HORIZONTAL,jmin,jmax,jdef);
                 DPan = new JPanel();
                 ok = new JButton("  OK  ");
-                startege = new JComboBox(Drakular.getNodes());
+                startedge = new JComboBox(Drakular.getNodes());
                 
-                //TODO Listener aufrufen
+               
               
                         
                         
                 add(DPan);     
-                DPan.add(slid);
-                DPan.add(startege);
-                DPan.add(ok);
-                //TODO 2. dropdown menu
-                //add(endedge);
-                //endedge.setEnabled(false);
-                
-                
-                //add listener
+               
+               
+               
+                DPan.add(startedge);
+             
+                /**
+                 * ActionListener for ok Button in ADDdelEDGE
+                 */
+                //*************************************add listener**************************************
                 ok.addActionListener(new ActionListener() {
-            
+                //************************************Action*********************************************
                     public void actionPerformed(ActionEvent e) {
-                        int x = startege.getSelectedIndex();
+                        int x = startedge.getSelectedIndex();
                         int y = endedge.getSelectedIndex();
                         int val = slid.getValue();
                         System.out.println("x:"+ x + "y:" + y + " value: " + val);
                         
                         try{
-                          Drakular.addEdge(x, y, val);  
+                        	if(adddel){
+                        		Drakular.addEdge(x, y, val);
+                        	}else{
+                        		Drakular.delEdge(x, y);
+                        	}
+                            
                         }catch(IllegalArgumentException iae){
                             System.err.println(iae.getMessage());
                         }
@@ -391,28 +582,45 @@ public class Window extends JFrame {
                     }
                     });
                 
-                startege.addItemListener(new ItemListener() {
-                    
+                startedge.addItemListener(new ItemListener() {
+                    /**
+                     * Item listener for Combobox Startedge
+                     */
+                	//*********************************Item Listener******************************************
                     public void itemStateChanged(ItemEvent e) {
-                        
+                    //************************************Action**********************************************    
                         if(e.getStateChange()==ItemEvent.SELECTED){
-                            int  Indexarray = startege.getSelectedIndex();
+                            int  Indexarray = startedge.getSelectedIndex();
                             int  numberOfEdges = Drakular.getEdgesOfNode(Indexarray).length;
                             snodename = new String[Drakular.getNodes().length];
                             
                            
-                            
-                            for (int i=0; i<Drakular.getNodes().length; i++){
-                                   if (!Drakular.getEdgesOfNode(Indexarray)[i]){
-                                       snodename[i] = Drakular.getNodeName(i);
-                                   }else {
-                                    snodename[i] = " - ";
-                                }
+                            if(adddel){
+                            	 for (int i=0; i<Drakular.getNodes().length; i++){
+                                     if (!Drakular.getEdgesOfNode(Indexarray)[i]){
+                                         snodename[i] = Drakular.getNodeName(i);
+                                     }else {
+                                      snodename[i] = " - ";
+                                  }
+                              }
+                              DPan.add(slid);
+                            }else{
+                            	 for (int i=0; i<Drakular.getNodes().length; i++){
+                                     if (Drakular.getEdgesOfNode(Indexarray)[i]){
+                                         snodename[i] = Drakular.getNodeName(i);
+                                     }else {
+                                      snodename[i] = " - ";
+                                  }
+                              }
+                            	
                             }
-                            
+                           
                             endedge = new JComboBox(snodename);
+                           
                             DPan.add(endedge);
-                            startege.enable(false);
+                            DPan.add(ok);
+                            
+                            startedge.enable(false);
                             
                             pack();
                             

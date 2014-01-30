@@ -22,7 +22,7 @@ public class Graph {
 		
 		adjacencyMatrix = new int[MAX][MAX];
 		nodes = new String[MAX];
-		se = new Searcher();
+		//se = new Searcher();
 		fh = new Filehandler();
 
 		
@@ -65,7 +65,7 @@ public class Graph {
 //		for (int i = 0; i < this.nodes.length; i++){
 //			nodelistvisited[i] = false;
 //		}
-		se.backtrack(7, se.DMS(this.adjacencyMatrix, 0, 7));
+		//se.backtrack(7, se.DMS(this.adjacencyMatrix, 0, 7));
 		
 	}
 	
