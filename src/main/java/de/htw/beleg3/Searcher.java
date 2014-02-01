@@ -8,14 +8,12 @@ public class Searcher {
 	
 	
 	public Searcher(){
-		/**
-		 * 
-		 */
+	
 	}
 	
 
 	
-	public int[][] DMS (int[][] adjMat, int current, int target){
+	public int[][] dms (int[][] adjMat, int current, int target){
 		/**
 		 * 
 		 */
@@ -25,56 +23,56 @@ public class Searcher {
 		for (int i = 0; i < discovered.length; i++){
 			discovered[i] = false;
 		}
-		int[][] way = new int[adjMat.length][2];
-		st.push(current);
-		//System.out.println(current);
+		int[][] way = new int[2][adjMat.length];
 		int itert = 0;
-		
+		int tmp;	
+		st.push(current);
 		while ( !st.isEmpty() && current != target ){
 
+			way[0][itert] = current;
+			tmp = current;
 			current = st.pop();
-			//System.out.println(current+1);
-
 			if (!discovered[current]){
-				discovered[current] = true;
-				
+				discovered[current] = true;				
+				way[1][itert] = current;
+				System.out.printf("\t%s\t-\t%s\t(%s)\n", 
+						way[0][itert], way[1][itert], itert);
 				itert++;
-				
 				for (int i = 0; i < adjMat.length; i++){
-					if (adjMat[i][current] >= 0){
-						//TODO Make a propper List for backtracking
-						// (from, to)
+					if ( !(adjMat[i][current] < 0) ){
 						st.push(i);
 					}
-				}
-				
+				}	
 			}
-		
+			else{
+				current = tmp;
+			}
 		}
 		return way;
 	}
 	
-	public void backtrack( int target, int[] way){
-		boolean innendrinnen = false; 
+	public Integer[] backtrack( int target, int[][] way){
+		System.out.println();
+		Integer[] bt = new Integer[way[0].length];
+		int cnt = 0;
 		int i;
-		for (i = way.length-1; i>=0; i--){
-			if (way[i] == target){
-				innendrinnen = true;
-				break;
+		for (i = way[0].length-1; i >= 0; i--){
+			if (way[1][i] == target){
+				for (int j = i; j >= 0; j--){
+					if (way[0][i] == way[1][j]){
+						bt[cnt] = way[1][i];
+						cnt++;
+						i = j;
+					}
+				}
 			}
 		}
-		if (! innendrinnen){
-			System.err.printf("Way not found!");
-		}
-		else{
-			for (i = i; i>0; i--){
-				System.out.println(i+1);
-			}
-		}
+		bt[cnt] = way[1][0];
+		return bt;
 	}
 	
-	private class Stack {
-		
+	
+	private class Stack {	
 		ArrayList<Integer> stack;
 		
 		public  Stack(){
@@ -82,7 +80,6 @@ public class Searcher {
 		}
 		
 		public void push(int elem){
-			//System.out.println(elem);
 			stack.add(elem);
 		}
 		
