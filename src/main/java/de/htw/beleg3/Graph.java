@@ -29,26 +29,26 @@ public class Graph {
 		emptyDataSet();
 		// ---
 		//Testcase
-		this.addNode("1");
-		this.addNode("2");
-		this.addNode("3");
-		this.addNode("4");
-		this.addNode("5");
-		this.addNode("6");
-		this.addNode("7");
-		this.addNode("8");
-		this.addNode("9");
-		this.addEdge(0,8,45);
-		this.addEdge(8,2,45);
-		this.addEdge(2,1,45);
-		this.addEdge(1,6,45);
-		this.addEdge(6,7,45);
+//		this.addNode("1");
+//		this.addNode("2");
+//		this.addNode("3");
+//		this.addNode("4");
+//		this.addNode("5");
+//		this.addNode("6");
+//		this.addNode("7");
+//		this.addNode("8");
+//		this.addNode("9");
+//		this.addEdge(0,8,45);
+//		this.addEdge(8,2,45);
+//		this.addEdge(2,1,45);
+//		this.addEdge(1,6,45);
+//		this.addEdge(6,7,45);
+//		
+//		this.addEdge(1,5,45);
+//		this.addEdge(5,4,45);
+//		this.addEdge(4,3,45);
 		
-		this.addEdge(1,5,45);
-		this.addEdge(5,4,45);
-		this.addEdge(4,3,45);
-		
-		//permRand(10,7,30); // nodes, edges, maxValue
+		permRand(100,70,30); // nodes, edges, maxValue
 		// Printing
 //		printGraph();
 	    // ------

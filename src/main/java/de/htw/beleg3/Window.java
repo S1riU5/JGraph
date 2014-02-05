@@ -304,6 +304,7 @@ public class Window extends JFrame {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				ADDdelEDGE Deledge = new ADDdelEDGE(Window.this, Drakular, false);
+				
 				repaint();
 				
 				
@@ -316,6 +317,7 @@ public class Window extends JFrame {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				RemNode rm = new RemNode(Window.this, Drakular);
+				Drakular.printGraph();
 				repaint();
 				
 			}
@@ -369,6 +371,8 @@ public class Window extends JFrame {
            }
            int linepusher = 10;
            g.setColor(Color.BLUE);
+           //TODO Zeichenen wenn Beim Löschen von punkt in der punktmenge fehlt der name bis alle punkte dahinter gelöscht
+           //sind
            for(int i = 0; i<numberofnodes; i++){
               for(int j = 0; j< numberofnodes; j++){
                   if(Drakular.getEdgeValue(i, j)>= 0){
