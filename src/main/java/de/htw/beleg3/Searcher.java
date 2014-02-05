@@ -25,12 +25,14 @@ public class Searcher {
 		}
 		int[][] way = new int[2][adjMat.length];
 		int itert = 0;
-		int tmp;	
 		st.push(current);
 		while ( !st.isEmpty() && current != target ){
-
+			// Ok the problem is:
+			//
+			// If a edge is gone the second time
+			// the value is saved and will be writen
+			// in way[0][n]
 			way[0][itert] = current;
-			tmp = current;
 			current = st.pop();
 			if (!discovered[current]){
 				discovered[current] = true;				
@@ -39,13 +41,10 @@ public class Searcher {
 						way[0][itert], way[1][itert], itert);
 				itert++;
 				for (int i = 0; i < adjMat.length; i++){
-					if ( !(adjMat[i][current] < 0) ){
+					if ( !(adjMat[i][current] < 0) && ! discovered[i]){
 						st.push(i);
 					}
 				}	
-			}
-			else{
-				current = tmp;
 			}
 		}
 		return way;
