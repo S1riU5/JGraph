@@ -67,14 +67,16 @@ public class Graph {
 //		for (int i = 0; i < this.nodes.length; i++){
 //			nodelistvisited[i] = false;
 //		}
-		path = se.backtrack(3, se.dms(this.adjacencyMatrix, 2, 3));
+
+		// Aufruf backtrack (target,  path from dms(adjMat, startpoint, target))
+		//path = se.backtrack(3, se.dms(this.adjacencyMatrix, 2, 3));
 		
-		for (int i = 0; i<path.length; i++){
-			if (path[i] == null)
-				break;
-			System.out.printf("-- %s -- \t",  path[i]);
-		}
-		System.out.println();
+		//for (int i = 0; i<path.length; i++){
+		//	if (path[i] == null)
+		//		break;
+		// 	System.out.printf("-- %s -- \t",  path[i]);
+		//}
+		//System.out.println();
 		
 	}
 	
