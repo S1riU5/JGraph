@@ -49,8 +49,8 @@ public class Graph {
 		this.addEdge(5,6,42);
 		this.addEdge(0,1,42);
 		this.addEdge(2,1,42);
-		this.addEdge(7,4,42);
-		this.addEdge(3,4,42);
+		this.addEdge(7,5,42);
+		this.addEdge(3,6,42);
 //		permRand(10,3,30); // nodes, edges, maxValue
 //		printGraph();
 	    // ------
@@ -69,14 +69,14 @@ public class Graph {
 //		}
 
 		// Aufruf backtrack (target,  path from dms(adjMat, startpoint, target))
-		//path = se.backtrack(3, se.dms(this.adjacencyMatrix, 2, 3));
+		path = se.backtrack(3, se.dms(this.adjacencyMatrix, 2, 3));
 		
-		//for (int i = 0; i<path.length; i++){
-		//	if (path[i] == null)
-		//		break;
-		// 	System.out.printf("-- %s -- \t",  path[i]);
-		//}
-		//System.out.println();
+		for (int i = 0; i<path.length; i++){
+			if (path[i] == null)
+				break;
+		 	System.out.printf("-- %s -- \t",  path[i]);
+		}
+		System.out.println();
 		
 	}
 	
