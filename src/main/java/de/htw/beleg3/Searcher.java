@@ -18,7 +18,8 @@ public class Searcher {
 		 * 
 		 */
 		
-		Stack st = new Stack();
+		Stack st = new Stack(); 
+		Stack fst = new Stack(); // fromstack
 		boolean[] discovered = new boolean[adjMat.length];
 		for (int i = 0; i < discovered.length; i++){
 			discovered[i] = false;
@@ -26,13 +27,14 @@ public class Searcher {
 		int[][] way = new int[2][adjMat.length];
 		int itert = 0;
 		st.push(current);
+		fst.push(current);
 		while ( !st.isEmpty() && current != target ){
 			// Ok the problem is:
 			//
 			// If a edge is gone the second time
 			// the value is saved and will be writen
 			// in way[0][n]
-			way[0][itert] = current;
+			way[0][itert] = fst.pop();
 			current = st.pop();
 			if (!discovered[current]){
 				discovered[current] = true;				
@@ -43,6 +45,7 @@ public class Searcher {
 				for (int i = 0; i < adjMat.length; i++){
 					if ( !(adjMat[i][current] < 0) && ! discovered[i]){
 						st.push(i);
+						fst.push(current);
 					}
 				}	
 			}

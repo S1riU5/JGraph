@@ -23,33 +23,35 @@ public class Graph {
 		
 		adjacencyMatrix = new int[MAX][MAX];
 		nodes = new String[MAX];
-		//se = new Searcher();
+		se = new Searcher();
 		fh = new Filehandler();
 
 		
 		emptyDataSet();
 		// ---
 		//Testcase
-//		this.addNode("1");
-//		this.addNode("2");
-//		this.addNode("3");
-//		this.addNode("4");
-//		this.addNode("5");
-//		this.addNode("6");
-//		this.addNode("7");
-//		this.addNode("8");
-//		this.addNode("9");
-//		this.addEdge(0,8,45);
-//		this.addEdge(8,2,45);
-//		this.addEdge(2,1,45);
-//		this.addEdge(1,6,45);
-//		this.addEdge(6,7,45);
-//		
-//		this.addEdge(1,5,45);
-//		this.addEdge(5,4,45);
-//		this.addEdge(4,3,45);
-		
-		permRand(100,70,30); // nodes, edges, maxValue
+		this.addNode("0");
+  		this.addNode("1");
+	  	this.addNode("2");
+		this.addNode("3");
+		this.addNode("4");
+		this.addNode("5");
+		this.addNode("6");
+		this.addNode("7");
+		this.addNode("8");		
+
+
+		this.addEdge(0,8,42);
+		this.addEdge(8,7,42);
+		this.addEdge(2,1,42);
+		this.addEdge(4,8,42);
+		this.addEdge(6,7,42);
+		this.addEdge(5,6,42);
+		this.addEdge(0,1,42);
+		this.addEdge(2,1,42);
+		this.addEdge(7,4,42);
+		this.addEdge(3,4,42);
+//		permRand(10,3,30); // nodes, edges, maxValue
 //		printGraph();
 	    // ------
 		
@@ -65,7 +67,14 @@ public class Graph {
 //		for (int i = 0; i < this.nodes.length; i++){
 //			nodelistvisited[i] = false;
 //		}
-		se.backtrack(7, se.dms(this.adjacencyMatrix, 0, 7));
+		path = se.backtrack(3, se.dms(this.adjacencyMatrix, 2, 3));
+		
+		for (int i = 0; i<path.length; i++){
+			if (path[i] == null)
+				break;
+			System.out.printf("-- %s -- \t",  path[i]);
+		}
+		System.out.println();
 		
 	}
 	
