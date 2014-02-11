@@ -10,6 +10,40 @@ public class Searcher {
 	 */
 	
 
+	public Integer[][] dijk(int[][] adjMat, int current, int target){
+		/**
+		 * dijk()
+		 * 
+		 * dijkstra-algorithm to find the shortest way in graph.
+		 * 
+		 * @return Integer[]   shortes way through the nodes
+		 */
+		Integer[][] way 	= new Integer[3][adjMat.length];
+		boolean[] discov 	= new boolean[adjMat.length];
+		Integer[] dist 		= new Integer[adjMat.length];
+		
+		for (int i = 0; i < discov.length; i++){
+			discov[i] =  false;
+			dist[i] = null;
+		}
+	
+		way[current][current] = 0;
+		dist [current] = 0;
+		discov[current] = true;
+		dist[current] = 0;
+		
+		
+		boolean finished = false;
+		while (!finished){
+
+		}
+		
+
+		
+		
+		return way;
+	}
+	
 	public int[][] dms (int[][] adjMat, int current, int target){
 		/**
 		 * dms()
@@ -20,7 +54,7 @@ public class Searcher {
 		 * 
 		 * @param int[][] adjMat   adjacencyMatrix
 		 * @param int current   startnode
-		 * @param int targhet   targetnode
+		 * @param int target   targetnode
 		 */
 		 /*
 		  *  Calling dms with backtracking:

@@ -30,31 +30,45 @@ public class Graph {
 		emptyDataSet();
 		// ---
 		//Testcase
-		this.addNode("0");
-  		this.addNode("1");
-	  	this.addNode("2");
-		this.addNode("3");
-		this.addNode("4");
-		this.addNode("5");
-		this.addNode("6");
-		this.addNode("7");
-		this.addNode("8");		
-
-
-		this.addEdge(0,8,42);
-		this.addEdge(8,7,42);
-		this.addEdge(2,1,42);
-		this.addEdge(4,8,42);
-		this.addEdge(6,7,42);
-		this.addEdge(5,6,42);
-		this.addEdge(0,1,42);
-		this.addEdge(2,1,42);
-		this.addEdge(7,5,42);
-		this.addEdge(3,6,42);
 //		permRand(10,3,30); // nodes, edges, maxValue
 //		printGraph();
-	    // ------
-		
+//	    // ------
+//		addNode("A");//0
+//		addNode("B");//1
+//		addNode("C");//2
+//		addNode("D");//3
+//		addNode("E");//4
+//		addNode("F");//5
+//		addNode("G");//6
+//		addNode("H");//7
+//		addNode("I");//8
+//		addNode("J");//9
+//		addNode("K");//10
+//		addNode("L");//11
+//		
+//		addEdge(0 , 1, 850);
+//		addEdge(0 , 3, 500);
+//		addEdge(1 , 2, 550);
+//		addEdge(1 , 5, 250);
+//		addEdge(2 , 6, 150);
+//		addEdge(3 , 4, 550);
+//		addEdge(3 , 7, 200);
+//		addEdge(4 , 5, 200);
+//		addEdge(4 , 9, 250);
+//		addEdge(5 , 6, 550);
+//		addEdge(5 , 9, 100);
+//		addEdge(6 , 10, 200);
+//		addEdge(7 , 8, 550);
+//		addEdge(8 , 9, 200);
+//		addEdge(8 , 11, 450);
+//		addEdge(9 , 10, 500);
+//		addEdge(9 , 7, 200);
+//		addEdge(10 , 11, 150);
+
+
+
+
+
 //		// Save data into file
 //		fh.saveGraphCSV(nodes, adjacencyMatrix);
 //		// load data from file
@@ -69,14 +83,16 @@ public class Graph {
 //		}
 
 		// Aufruf backtrack (target,  path from dms(adjMat, startpoint, target))
-		path = se.backtrack(3, se.dms(this.adjacencyMatrix, 2, 3));
+		//path = se.backtrack(3, se.dms(this.adjacencyMatrix, 2, 3));
 		
-		for (int i = 0; i<path.length; i++){
-			if (path[i] == null)
-				break;
-		 	System.out.printf("-- %s -- \t",  path[i]);
-		}
-		System.out.println();
+		//path = se.dijk(this.adjacencyMatrix, 4, 8);
+		
+//		for (int i = 0; i<path.length; i++){
+//			if (path[i] == null)
+//				break;
+//		 	System.out.printf("-- %s -- \t",  path[i]);
+//		}
+//		System.out.println();
 		
 	}
 	
