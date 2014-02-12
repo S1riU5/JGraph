@@ -317,6 +317,7 @@ public class Window extends JFrame {
 
 			public void actionPerformed(ActionEvent arg0) {
 				so.run();
+				repaint();
 
 			}
 		});
@@ -360,7 +361,7 @@ public class Window extends JFrame {
 						i);
 				g.setColor(Color.LIGHT_GRAY);
 				g.fillOval(tmpCoord[0] + tmp[0], tmpCoord[1] + tmp[1], 25, 25);
-				g.setColor(Color.GREEN);
+				g.setColor(Color.RED);
 				g.drawString(Drakular.getNodeName(i), tmpCoord[0] + tmp[0],
 						tmpCoord[1] + tmp[1]);
 
@@ -470,13 +471,13 @@ public class Window extends JFrame {
 		JPanel remPan;
 		JComboBox nodes;
 		JButton ok;
-		JButton close;
+		
 
 		public RemNode(JFrame Window, Graph Drakular) {
 			super(Window);
 			setTitle("Remove Node");
 			initializeContent();
-
+			setLocationRelativeTo(Window);
 			setVisible(true);
 			pack();
 
@@ -489,12 +490,11 @@ public class Window extends JFrame {
 		public void initializeContent() {
 			remPan = new JPanel();
 			ok = new JButton(" OK ");
-			close = new JButton("Close");
 			nodes = new JComboBox(Drakular.getNodes());
 			add(remPan);
 			remPan.add(nodes);
 			remPan.add(ok);
-			remPan.add(close);
+			
 
 			// ********************************Actionlistener*************************************
 			/**
@@ -512,17 +512,8 @@ public class Window extends JFrame {
 					Window.this.repaint();
 				}
 			});
-			// ********************************Actionlistener**************************************
-			/**
-			 * Close dialogframe
-			 */
-			close.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent arg0) {
-					setVisible(false);
-
-				}
-			});
+			
+			
 		}
 		// **********************************ActionListener************************************
 
@@ -670,7 +661,7 @@ public class Window extends JFrame {
 
 	}
 
-	// TODO
+	
 	private class Search extends JDialog {
 		List<String> startlist = new ArrayList<String>();
 		List<String> endlist = new ArrayList<String>();
