@@ -64,7 +64,7 @@ public class Graph {
 //		addEdge(9 , 10, 500);
 //		addEdge(9 , 7, 200);
 //		addEdge(10 , 11, 150);
-//		
+		
 		
 		//Zeichenbeispiel
 		
@@ -146,7 +146,7 @@ public class Graph {
 		}
 	}
 	
-	private void permRand(int nodes, int edges, int maxValue){
+	public void permRand(int nodes, int edges, int maxValue){
 		/**
 		 * permRand()
 		 * 
@@ -159,6 +159,7 @@ public class Graph {
 		 * 
 		 */
 		int rand1, rand2, rand3;
+		emptyDataSet();
 		for (int i = 0; i<nodes; i++){			
 			addNode(String.valueOf(i));
 		}

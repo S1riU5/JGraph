@@ -61,6 +61,7 @@ public class Window extends JFrame {
 	JButton Save;
 	JButton reP;
 	JButton search;
+	JButton rdG;
 	// ********************************DeklarateTextfields***********************************************
 	JTextField nodename;
 	JTextField edgelength;
@@ -81,6 +82,7 @@ public class Window extends JFrame {
 	Graph Drakular;
 	Searcher se;
 	Search so;
+	Randomize re;
 
 	/**
 	 * Constructer: Window (MainFrame)
@@ -150,11 +152,13 @@ public class Window extends JFrame {
 		load = new JButton("Load");
 		reP = new JButton("Repaint");
 		search = new JButton("Search");
+		rdG = new JButton("Create Randomized Graph");
 
 		// initialize Label with text
 		nodetext = new JLabel("Enter nodename");
 		edgetext = new JLabel("Enter edgelength");
 		draw = new DrawLine();
+		re = new Randomize(Window.this, Drakular);
 		// initialize textlable
 		nodename = new JTextField();
 		edgelength = new JTextField();
@@ -188,7 +192,7 @@ public class Window extends JFrame {
 		reP.setBounds(buttonCoordX, 25 * buttonCoordY, buttonWidth, buttonHight);
 		search.setBounds(buttonCoordX, 22 * buttonCoordY, buttonWidth,
 				buttonHight);
-
+		rdG.setBounds(buttonCoordX,28* buttonCoordY, buttonWidth, buttonHight);
 		// ********************************************setCoordinatesLabels*******************************************
 		nodetext.setBounds(textCoordX, textCoordY, textLength, textHight);
 		draw.setBounds(labelCoordX, labelCoordY, labelWidth, labelHight);
@@ -211,6 +215,7 @@ public class Window extends JFrame {
 		menu.add(load);
 		menu.add(reP);
 		menu.add(search);
+		menu.add(rdG);
 
 		// ********************************************add2PanEXTFIELDS*************************************************
 		menu.add(nodetext);
@@ -321,12 +326,25 @@ public class Window extends JFrame {
 
 			}
 		});
+		/**
+		 * open Random option Window
+		 */
+		rdG.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				re.run();
+				repaint();
+				
+			}
+		});
 
 		// ***********************************set windwo
 		// Visable***********************************
 		setVisible(true);
 
 	}
+	
+	
 
 	/**
 	 * 
@@ -697,15 +715,18 @@ public class Window extends JFrame {
 			pack();
 
 		}
-
+		//TODO
 		private void fillliststart() {
 			int length = Drakular.getNumerOfNodes();
 			String[] tmp = Drakular.getNodes();
 
 			startlist.clear();
 			for (int i = 0; i < length; i++) {
-				startlist.add(i, tmp[i]);
+				if(!tmp[i].equals("")){	
+				startlist.add(tmp[i]);
+				
 			}
+				}
 
 		}
 
@@ -775,6 +796,101 @@ public class Window extends JFrame {
 
 		}
 
+	}
+private class Randomize extends JDialog{
+		
+		JButton Ok = new JButton("OK");
+		JTextField nn = new JTextField("Numbers Of Nodes");
+		JTextField en = new JTextField("Numbers Of Edges");
+		JPanel all = new JPanel();
+		JPanel text = new JPanel();
+
+		
+		
+		public Randomize(JFrame Window, Graph Drakular ){
+			
+			super(Window);
+			setTitle("Add Edge");
+			setResizable(false);
+			setLocationRelativeTo(Window);
+			setModal(true);		
+			
+			
+			
+		}
+		
+		public void run(){
+			content();
+			setVisible(true);
+		}
+		
+		private void content (){
+			
+			add(all);
+			all.add(Ok);
+			all.add(en);
+			all.add(nn);
+			pack();
+			Ok.addActionListener(new ActionListener() {
+				/**
+				 * create an random Graph with entered parameter nodenumber and edgenumber
+				 */
+				public void actionPerformed(ActionEvent e) {
+					String nodnum;
+					String ednum;
+					Integer nodenu;
+					Integer edenu;
+					Integer proof = 1;
+					
+					
+					try{
+					nodnum = nn.getText();
+					ednum = en.getText();
+					nodenu = Integer.parseInt(nodnum);
+					edenu = Integer.parseInt(ednum);
+					
+					for(int i=1; i<=nodenu-1; i++)
+						proof = proof * i;
+					if (nodnum.equals("1")){
+						System.err.println("number of nodes to smale");
+						edenu = 0;
+					}else if(nodnum.equals("0")){
+						System.err.println("number of nodes to smale");
+						edenu = 0;
+					}else if (proof<edenu){
+						System.err.println("to many edges");
+						edenu = 0;
+						
+						
+					}else{
+						
+					}
+						
+					
+					
+					try{
+						Drakular.permRand(nodenu, edenu, 500);
+						setVisible(false);
+					}catch(ArrayIndexOutOfBoundsException exp2){
+						System.err.println(exp2);
+						System.err.println("to many Nodes");
+					}
+					
+					}catch(NumberFormatException exp){					
+						System.err.println(exp);
+						System.err.println("Please enter an valide value");
+					}
+					
+
+					
+					
+				}
+			});
+			
+		
+		}
+		
+	
 	}
 
 }
