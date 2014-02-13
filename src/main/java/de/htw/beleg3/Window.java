@@ -345,6 +345,18 @@ public class Window extends JFrame {
 			int tmp[], tmp2[] = new int[2];
 			int tmpCoord[], tmpCoord2[] = new int[2];
 			int numberofnodes = Drakular.getNumerOfNodes();
+			List<String>useName = new ArrayList<String>();
+			String[] tmpName =Drakular.getNodes();
+			//*** fix draw Bug
+			//FIXME convert array to list
+			useName.clear();
+			for (int k = 0; k<tmpName.length; k++){
+				if(!tmpName[k].equals("")){
+					useName.add(tmpName[k]);
+//					System.err.println(useName.get(k));
+//					System.err.println(useName.size());
+				}
+			}
 			/*
 			 * sample Oval
 			 * g.drawOval(25+(csize/2)-(nsize/2),25+(csize/2)-(nsize/2),nsize
@@ -362,7 +374,7 @@ public class Window extends JFrame {
 				g.setColor(Color.LIGHT_GRAY);
 				g.fillOval(tmpCoord[0] + tmp[0], tmpCoord[1] + tmp[1], 25, 25);
 				g.setColor(Color.RED);
-				g.drawString(Drakular.getNodeName(i), tmpCoord[0] + tmp[0],
+				g.drawString(useName.get(i), tmpCoord[0] + tmp[0],
 						tmpCoord[1] + tmp[1]);
 
 			}
